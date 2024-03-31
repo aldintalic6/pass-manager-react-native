@@ -3,11 +3,12 @@ import { View, StyleSheet, SafeAreaView } from 'react-native'; // Import SafeAre
 
 import LoginScreen from './screens/LoginScreen';
 import RegisterScreen from './screens/RegisterScreen';
+import EntriesScreen from './screens/EntriesScreen';
 
 const App = () => {
   return (
     <View style={styles.container}>
-      <LoginScreen/>
+      <EntriesScreen/>
       {/* Use the LoginScreen component for login screen */}
     </View>
   );
