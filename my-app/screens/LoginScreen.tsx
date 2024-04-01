@@ -102,8 +102,8 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   buttonContainer: {
-    flexDirection: 'column', // Align items horizontally
-    alignItems: 'center', // Align items vertically,
+    flexDirection: 'column', 
+    alignItems: 'center', 
     width: '100%'
   },
   signUpText: {
