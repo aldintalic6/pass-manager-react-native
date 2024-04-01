@@ -44,8 +44,7 @@ const entries: Entry[] = [
         <SectionList
             sections={[{ title: 'Entries', data: entries }]}
             renderItem={renderEntryItem}
-            keyExtractor={item => item.id}
-            
+            keyExtractor={item => item.id}            
         />
     </View>
   );
