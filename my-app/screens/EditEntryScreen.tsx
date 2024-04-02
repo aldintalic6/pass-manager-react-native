@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, Image, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, TextInput, Button, Image, TouchableOpacity, StyleSheet, Alert } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 const image = require("../assets/klix.png");
 
@@ -10,17 +10,25 @@ const EditEntryScreen = () => {
   const [password, setPassword] = useState('password123');
   const [showPassword, setShowPassword] = useState(false);
 
+  const handleGoBack = () => {
+    Alert.alert(
+      'Cancel',
+      'Are you sure you want to discard changes?',
+      [
+        { text: 'Cancel', style: 'cancel' },
+        { text: 'OK', onPress: () => console.log('Changes discarded') }
+      ],
+      { cancelable: false }
+    );
+};
+
   const handleChoosePhoto = () => {
     setPhoto(null);
     console.log("Choose new photo");
   };
 
-  const handleGoBack = () => {
-    console.log("Went back")
-  };
-
-  const handleAddEntry = () => {
-    console.log("Entry added")
+  const handleEditEntry = () => {
+    console.log("Entry edited")
   };
 
   const toggleShowPassword = () => {
@@ -33,7 +41,7 @@ const EditEntryScreen = () => {
             <TouchableOpacity onPress={handleGoBack}>
                 <Text style={styles.cancelButtonText}>Cancel</Text>
             </TouchableOpacity>
-            <TouchableOpacity onPress={handleAddEntry}>
+            <TouchableOpacity onPress={handleEditEntry}>
                 <Text style={styles.confirmButtonText}>Confirm</Text>
             </TouchableOpacity>
         </View>

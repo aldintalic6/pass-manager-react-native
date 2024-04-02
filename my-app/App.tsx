@@ -6,12 +6,13 @@ import RegisterScreen from './screens/RegisterScreen';
 import EntriesScreen from './screens/EntriesScreen';
 import AddEntryScreen from './screens/AddEntryScreen';
 import EditEntryScreen from './screens/EditEntryScreen';
+import EntryScreen from './screens/EntryScreen';
 
 const App = () => {
   return (
     <View style={styles.container}>
       <EditEntryScreen/>
-      {/* Use the LoginScreen component for login screen */}
+      {/* Use different components to show different screens */}
     </View>
   );
 };
