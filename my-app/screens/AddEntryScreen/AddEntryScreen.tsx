@@ -33,7 +33,7 @@ const AddEntryScreen = () => {
   };
 
   const toggleShowPassword = () => {
-    setShowPassword(!showPassword); // Toggle the state between true and false
+    setShowPassword(!showPassword); 
   };
 
   return (

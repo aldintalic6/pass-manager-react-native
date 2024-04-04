@@ -19,7 +19,7 @@ const LoginScreen = () => {
   };
 
   const handleRegister = () => {
-    // Handle login logic here
+    
     console.log('Switched to register screen');
   };
 

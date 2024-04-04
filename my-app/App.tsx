@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, SafeAreaView } from 'react-native'; // Import SafeAreaView for better compatibility
+import { View, StyleSheet, SafeAreaView } from 'react-native'; 
 
 import LoginScreen from './screens/LoginScreen/LoginScreen';
 import RegisterScreen from './screens/RegisterScreen/RegisterScreen';
