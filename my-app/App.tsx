@@ -1,13 +1,13 @@
 import React from 'react';
 import { View, StyleSheet, SafeAreaView } from 'react-native'; // Import SafeAreaView for better compatibility
 
-import LoginScreen from './screens/LoginScreen';
-import RegisterScreen from './screens/RegisterScreen';
-import EntriesScreen from './screens/EntriesScreen';
-import AddEntryScreen from './screens/AddEntryScreen';
-import EditEntryScreen from './screens/EditEntryScreen';
-import EntryScreen from './screens/EntryScreen';
-import PasswordGeneratorScreen from './screens/PasswordGeneratorScreen';
+import LoginScreen from './screens/LoginScreen/LoginScreen';
+import RegisterScreen from './screens/RegisterScreen/RegisterScreen';
+import EntriesScreen from './screens/EntriesScreen/EntriesScreen';
+import AddEntryScreen from './screens/AddEntryScreen/AddEntryScreen';
+import EditEntryScreen from './screens/EditEntryScreen/EditEntryScreen';
+import EntryScreen from './screens/EntryScreen/EntryScreen';
+import PasswordGeneratorScreen from './screens/PasswordGeneratorScreen/PasswordGeneratorScreen';
 
 const App = () => {
   return (

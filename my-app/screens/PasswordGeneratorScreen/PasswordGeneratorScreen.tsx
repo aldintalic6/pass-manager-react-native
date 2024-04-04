@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, Clipboard, StyleSheet } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, Clipboard } from 'react-native';
+import passwordGeneratorStyles from './PasswordGeneratorStyles';
 import { Ionicons } from '@expo/vector-icons';
 
 const PasswordGeneratorScreen = () => {
@@ -40,66 +41,24 @@ const PasswordGeneratorScreen = () => {
   };
 
   return (
-    <View style={styles.container}>
-        <View style={styles.topBar}>
+    <View style={passwordGeneratorStyles.container}>
+        <View style={passwordGeneratorStyles.topBar}>
             <TouchableOpacity onPress={handleGoBack}>
                 <Ionicons name="arrow-back" size={24} color="black" />
             </TouchableOpacity>
         </View>
-        <View style={styles.passwordContainer}>
-      <Text style={styles.label}>Password: {password}</Text>
-      <Text style={styles.label}>Strength: {strength}</Text>
-      <TouchableOpacity onPress={generateNewPassword} style={styles.passwordButton}>
-        <Text style={styles.buttonText}>Generate New Password</Text>
+        <View style={passwordGeneratorStyles.passwordContainer}>
+      <Text style={passwordGeneratorStyles.label}>Password: {password}</Text>
+      <Text style={passwordGeneratorStyles.label}>Strength: {strength}</Text>
+      <TouchableOpacity onPress={generateNewPassword} style={passwordGeneratorStyles.passwordButton}>
+        <Text style={passwordGeneratorStyles.buttonText}>Generate New Password</Text>
       </TouchableOpacity>
-      <TouchableOpacity onPress={copyToClipboard} style={styles.clipoardButton}>
-        <Text style={styles.buttonText}>Copy to Clipboard</Text>
+      <TouchableOpacity onPress={copyToClipboard} style={passwordGeneratorStyles.clipoardButton}>
+        <Text style={passwordGeneratorStyles.buttonText}>Copy to Clipboard</Text>
       </TouchableOpacity>
       </View>
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 20,
-    alignItems: 'center'
-  },
-  topBar: {
-    paddingTop: 8,
-    flexDirection: 'row',
-    justifyContent: 'flex-start',
-    width: '100%',
-  },
-  passwordContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginBottom: 30
-  },
-  label: {
-    fontSize: 18,
-    marginBottom: 10,
-  },
-  passwordButton: {
-    backgroundColor: '#2196F3',
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    borderRadius: 5,
-    marginTop: 20,
-  },
-  clipoardButton: {
-    backgroundColor: '#4CAF50',
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    borderRadius: 5,
-    marginTop: 20,
-  },
-  buttonText: {
-    color: 'white',
-    fontSize: 16,
-  },
-});
 
 export default PasswordGeneratorScreen;

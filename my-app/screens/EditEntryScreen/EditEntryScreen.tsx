@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, Image, TouchableOpacity, StyleSheet, Alert } from 'react-native';
+import { View, Text, TextInput, Button, Image, TouchableOpacity, Alert } from 'react-native';
+import editEntryStyles from './EditEntryScreenStyles';
 import { Ionicons } from '@expo/vector-icons';
-const image = require("../assets/klix.png");
+const image = require("../../assets/klix.png");
 
 const EditEntryScreen = () => {
   const [photo, setPhoto] = useState(image); 
@@ -40,40 +41,40 @@ const EditEntryScreen = () => {
   };
 
   return (
-    <View style={styles.container}>
-        <View style={styles.topBar}>
+    <View style={editEntryStyles.container}>
+        <View style={editEntryStyles.topBar}>
             <TouchableOpacity onPress={handleGoBack}>
-                <Text style={styles.cancelButtonText}>Cancel</Text>
+                <Text style={editEntryStyles.cancelButtonText}>Cancel</Text>
             </TouchableOpacity>
             <TouchableOpacity onPress={handleEditEntry}>
-                <Text style={styles.confirmButtonText}>Confirm</Text>
+                <Text style={editEntryStyles.confirmButtonText}>Confirm</Text>
             </TouchableOpacity>
         </View>
         <TouchableOpacity onPress={handleChoosePhoto}>
-            <View style={styles.imageContainer}>
+            <View style={editEntryStyles.imageContainer}>
                 {photo ? (
-                    <Image source={photo} style={styles.image} />
+                    <Image source={photo} style={editEntryStyles.image} />
                 ) : (
-                    <Text style={styles.choosePhotoText}>Choose Photo</Text>
+                    <Text style={editEntryStyles.choosePhotoText}>Choose Photo</Text>
                 )}
             </View>
         </TouchableOpacity>
         <TextInput
-            style={styles.input}
+            style={editEntryStyles.input}
             placeholder="Name"
             value={name}
             onChangeText={setName}
         />
         <TextInput
-            style={styles.input}
+            style={editEntryStyles.input}
             placeholder="Email"
             keyboardType="email-address"
             value={email}
             onChangeText={setEmail}
         />
-        <View style={styles.passwordInputContainer}>
+        <View style={editEntryStyles.passwordInputContainer}>
             <TextInput
-                style={styles.passwordInput}
+                style={editEntryStyles.passwordInput}
                 placeholder="Password"
                 secureTextEntry={!showPassword} 
                 value={password}
@@ -89,70 +90,5 @@ const EditEntryScreen = () => {
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 20,
-    alignItems: 'center'
-  },
-  topBar: {
-    flexDirection: 'row',
-    justifyContent: 'space-evenly',
-    paddingTop: 8,
-    paddingBottom: 70
-  },
-  imageContainer: {
-    width: 150,
-    height: 150,
-    backgroundColor: '#eee',
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginBottom: 50,
-  },
-  image: {
-    width: '100%',
-    height: '100%',
-  },
-  choosePhotoText: {
-    fontSize: 18,
-    color: '#555',
-  },
-  input: {
-    width: '100%',
-    height: 40,
-    borderBottomWidth: 0.3, 
-    borderBottomColor: '#CCCCCC', 
-    paddingHorizontal: 10,
-    marginBottom: 10,
-    fontSize: 17
-  },
-  passwordInputContainer: {
-    width: '100%',
-    flexDirection: 'row',
-    alignItems: 'center',
-    borderBottomWidth: 0.3, 
-    borderBottomColor: '#CCCCCC', 
-    marginBottom: 10,
-  },
-  passwordInput: {
-    flex: 1,
-    height: 40,
-    paddingHorizontal: 10,
-    fontSize: 17
-  },
-  cancelButtonText: {
-    color: 'red',
-    padding: 7,
-    fontSize: 16,
-    fontWeight: 'bold',
-    paddingRight: 220
-  },
-  confirmButtonText: {
-    color: 'blue',
-    padding: 7,
-    fontSize: 16,
-  }
-});
 
 export default EditEntryScreen;
