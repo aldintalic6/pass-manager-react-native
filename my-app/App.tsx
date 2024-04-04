@@ -7,11 +7,12 @@ import EntriesScreen from './screens/EntriesScreen';
 import AddEntryScreen from './screens/AddEntryScreen';
 import EditEntryScreen from './screens/EditEntryScreen';
 import EntryScreen from './screens/EntryScreen';
+import PasswordGeneratorScreen from './screens/PasswordGeneratorScreen';
 
 const App = () => {
   return (
     <View style={styles.container}>
-      <EditEntryScreen/>
+      <PasswordGeneratorScreen/>
       {/* Use different components to show different screens */}
     </View>
   );

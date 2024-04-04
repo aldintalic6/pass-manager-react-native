@@ -31,6 +31,10 @@ const EditEntryScreen = () => {
     console.log("Entry edited")
   };
 
+  const handePasswordGenerator = () => {
+    console.log("Went to password generator")
+  };
+
   const toggleShowPassword = () => {
     setShowPassword(!showPassword); 
   };
@@ -75,6 +79,9 @@ const EditEntryScreen = () => {
                 value={password}
                 onChangeText={setPassword}
             />
+            <TouchableOpacity onPress={handePasswordGenerator} style={{marginRight: 12}}>
+              <Ionicons name="key" size={24} color="black" />
+            </TouchableOpacity>
             <TouchableOpacity onPress={toggleShowPassword}>
                 <Ionicons name={showPassword ? "eye-off" : "eye"} size={24} color="#555" />
             </TouchableOpacity>

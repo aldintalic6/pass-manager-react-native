@@ -27,6 +27,10 @@ const AddEntryScreen = () => {
     setPhoto(null);
   };
 
+  const handePasswordGenerator = () => {
+    console.log("Went to password generator")
+  };
+
   const toggleShowPassword = () => {
     setShowPassword(!showPassword); // Toggle the state between true and false
   };
@@ -68,6 +72,9 @@ const AddEntryScreen = () => {
           value={password}
           onChangeText={setPassword}
         />
+        <TouchableOpacity onPress={handePasswordGenerator} style={{marginRight: 12}}>
+          <Ionicons name="key" size={24} color="black" />
+        </TouchableOpacity>
         <TouchableOpacity onPress={toggleShowPassword}>
           <Ionicons name={showPassword ? "eye-off" : "eye"} size={24} color="#555" />
         </TouchableOpacity>
@@ -85,9 +92,10 @@ const styles = StyleSheet.create({
   },
   topBar: {
     flexDirection: 'row',
-    paddingTop: 8,
+    justifyContent: 'flex-start',
     marginBottom: 70,
-    marginRight: 305
+    paddingTop: 8,
+    width: '100%'
   },
   imageContainer: {
     width: 150,
