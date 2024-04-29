@@ -10,9 +10,9 @@ import EntryScreen from './screens/EntryScreen/EntryScreen';
 import PasswordGeneratorScreen from './screens/PasswordGeneratorScreen/PasswordGeneratorScreen';
 
 const App = () => {
-  return (
+  return (  
     <View style={styles.container}>
-      <PasswordGeneratorScreen/>
+      <LoginScreen/>
       {/* Use different components to show different screens */}
     </View>
   );
