@@ -3,7 +3,8 @@ import { View, Text, TextInput, TouchableOpacity, Clipboard } from 'react-native
 import passwordGeneratorStyles from './PasswordGeneratorStyles';
 import { Ionicons } from '@expo/vector-icons';
 
-const PasswordGeneratorScreen = () => {
+const PasswordGeneratorScreen = ({ navigation }: { navigation: any }) => {
+
   const [password, setPassword] = useState('');
   const [strength, setStrength] = useState('');
 

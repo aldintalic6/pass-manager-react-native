@@ -19,24 +19,24 @@ const entries: Entry[] = [
   // more entries will be added
 ];
 
-const handleAddEntry = () => {
-  console.log('Navigate to Add Entry screen');
-};
+const EntriesScreen = ({ navigation }: { navigation: any }) => {
 
-const handleEntryPress = (entry: any) => {
-  console.log('Entry clicked:', entry);
-};
+  const handleAddEntry = () => {
+    navigation.navigate('AddEntry');
+  };
+  
+  const handleEntryPress = (entry: any) => {
+    navigation.navigate('Entry');
+  };
 
-const renderEntryItem = ({ item } : {item : any}) => (
-  <TouchableOpacity onPress={() => handleEntryPress(item)}>
-    <View style={entriesStyles.entryItem}>
-      <Image source={item.image} style={entriesStyles.entryImage} />
-      <Text style={entriesStyles.entryTitle}>{item.title}</Text>
-    </View>
-  </TouchableOpacity>
-);
-
-const EntriesScreen = () => {
+  const renderEntryItem = ({ item } : {item : any}) => (
+    <TouchableOpacity onPress={() => handleEntryPress(item)}>
+      <View style={entriesStyles.entryItem}>
+        <Image source={item.image} style={entriesStyles.entryImage} />
+        <Text style={entriesStyles.entryTitle}>{item.title}</Text>
+      </View>
+    </TouchableOpacity>
+  );
 
   return (
     <View style={entriesStyles.container}>
@@ -53,4 +53,3 @@ const EntriesScreen = () => {
 };
 
 export default EntriesScreen;
-

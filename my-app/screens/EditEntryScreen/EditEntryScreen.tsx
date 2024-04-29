@@ -4,7 +4,8 @@ import editEntryStyles from './EditEntryScreenStyles';
 import { Ionicons } from '@expo/vector-icons';
 const image = require("../../assets/klix.png");
 
-const EditEntryScreen = () => {
+  const EditEntryScreen = ({ navigation }: { navigation: any }) => {
+
   const [photo, setPhoto] = useState(image); 
   const [name, setName] = useState('Klix');
   const [email, setEmail] = useState('usermail@gmail.com');
@@ -17,10 +18,11 @@ const EditEntryScreen = () => {
       'Are you sure you want to discard changes?',
       [
         { text: 'Cancel', style: 'cancel' },
-        { text: 'OK', onPress: () => console.log('Changes discarded') }
+        { text: 'OK', onPress: () => navigation.navigate('Entry') }
       ],
       { cancelable: false }
     );
+    
 };
 
   const handleChoosePhoto = () => {
@@ -30,10 +32,11 @@ const EditEntryScreen = () => {
 
   const handleEditEntry = () => {
     console.log("Entry edited")
+    navigation.navigate('Entry');
   };
 
   const handePasswordGenerator = () => {
-    console.log("Went to password generator")
+    navigation.navigate('PasswordGenerator');
   };
 
   const toggleShowPassword = () => {

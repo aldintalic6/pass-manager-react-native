@@ -4,7 +4,8 @@ import entryStyles from './EntryScreenStyles';
 import { Ionicons } from '@expo/vector-icons';
 const image = require("../../assets/x.png");
 
-const EntryScreen = () => {
+  const EntryScreen = ({ navigation }: { navigation: any }) => {
+
   const [photo, setPhoto] = useState(image); 
   const [name, setName] = useState('X');
   const [email, setEmail] = useState('usermail@x.com');
@@ -12,7 +13,7 @@ const EntryScreen = () => {
   const [showPassword, setShowPassword] = useState(false);
 
   const handleGoBack = () => {
-    console.log("Went back to entries screen")
+    navigation.navigate('Entries');
   };
 
   const toggleShowPassword = () => {
@@ -20,7 +21,7 @@ const EntryScreen = () => {
   };
 
   const goToEdit = () => {
-    console.log("Went to edit screen!")
+    navigation.navigate('EditEntry');
   };
 
   const deleteEntry = () => {

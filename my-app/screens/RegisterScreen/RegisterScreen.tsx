@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, ImageBackground, Alert} from 'react-native';
 import registerStyles from './RegisterScreenStyles';
 
-function ReigsterScreen({ navigation }: { navigation: any }) {
+const ReigsterScreen = ({ navigation }: { navigation: any }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');

@@ -4,7 +4,7 @@ import addEntryStyles from './AddEntryScreenStyles';
 import { Ionicons } from '@expo/vector-icons';
 const image = require("../../assets/klix.png");
 
-const AddEntryScreen = () => {
+const AddEntryScreen = ({ navigation }: { navigation: any }) => {
   const [photo, setPhoto] = useState(null); 
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -17,19 +17,15 @@ const AddEntryScreen = () => {
   };
 
   const handleGoBack = () => {
-    console.log("Went back")
+    navigation.navigate('Entries');
   };
 
   const handleAddEntry = () => {
-    console.log("Entry added")
-    setName("");
-    setEmail("");
-    setPassword("");
-    setPhoto(null);
+    navigation.navigate('Entries');
   };
 
   const handePasswordGenerator = () => {
-    console.log("Went to password generator")
+    navigation.navigate('PasswordGenerator');
   };
 
   const toggleShowPassword = () => {
