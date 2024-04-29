@@ -1,9 +1,7 @@
 import React from 'react';
-import { View, StyleSheet, SafeAreaView } from 'react-native';
-import 'react-native-gesture-handler';
+import { View, StyleSheet, SafeAreaView } from 'react-native'; 
 import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
-
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import LoginScreen from './screens/LoginScreen/LoginScreen';
 import RegisterScreen from './screens/RegisterScreen/RegisterScreen';
@@ -13,12 +11,19 @@ import EditEntryScreen from './screens/EditEntryScreen/EditEntryScreen';
 import EntryScreen from './screens/EntryScreen/EntryScreen';
 import PasswordGeneratorScreen from './screens/PasswordGeneratorScreen/PasswordGeneratorScreen';
 
-const App = () => {
+const Stack = createNativeStackNavigator();
+
+function App() {
   return (  
-    <View style={styles.container}>
-      <LoginScreen/>
-      {/* Use different components to show different screens */}
-    </View>
+    <NavigationContainer>
+      <View style={styles.container}>
+        <Stack.Navigator initialRouteName="Login">
+          <Stack.Screen name="Login" component={LoginScreen} />
+          <Stack.Screen name="Register" component={RegisterScreen} />
+        </Stack.Navigator>
+        {/* Use different components to show different screens */}
+      </View>
+    </NavigationContainer>
   );
 };
 

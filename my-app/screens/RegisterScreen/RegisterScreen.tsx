@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, ImageBackground, Alert} from 'react-native';
 import registerStyles from './RegisterScreenStyles';
 
-const ReigsterScreen = () => {
+function ReigsterScreen({ navigation }: { navigation: any }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -28,7 +28,7 @@ const ReigsterScreen = () => {
   
   const handleLogin = () => {
     
-    console.log('Switched to login screen');
+    navigation.navigate('Login');
   };
 
   return (
