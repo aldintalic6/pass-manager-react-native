@@ -1,5 +1,9 @@
 import React from 'react';
-import { View, StyleSheet, SafeAreaView } from 'react-native'; 
+import { View, StyleSheet, SafeAreaView } from 'react-native';
+import 'react-native-gesture-handler';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+
 
 import LoginScreen from './screens/LoginScreen/LoginScreen';
 import RegisterScreen from './screens/RegisterScreen/RegisterScreen';
