@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { View, Text, TextInput, Button, Image, TouchableOpacity } from 'react-native';
 import addEntryStyles from './AddEntryScreenStyles';
 import { Ionicons } from '@expo/vector-icons';
+import usePasswordValidator from '../../customhooks/passwordValidator';
+
 const image = require("../../assets/klix.png");
 
 const AddEntryScreen = ({ navigation }: { navigation: any }) => {
@@ -10,6 +12,7 @@ const AddEntryScreen = ({ navigation }: { navigation: any }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
+  const { isValid, validatePassword } = usePasswordValidator(); // custom hook
 
   const handleChoosePhoto = () => {
     setPhoto(image);
@@ -21,7 +24,16 @@ const AddEntryScreen = ({ navigation }: { navigation: any }) => {
   };
 
   const handleAddEntry = () => {
-    navigation.navigate('Entries');
+    if (isValid) {
+      navigation.navigate('Entries');
+    } else {
+      alert('Please enter a valid password.');
+    }
+  };
+
+  const handlePasswordChange = (value : any) => {
+    setPassword(value);
+    validatePassword(value);
   };
 
   const handePasswordGenerator = () => {
@@ -67,7 +79,7 @@ const AddEntryScreen = ({ navigation }: { navigation: any }) => {
           placeholder="Password"
           secureTextEntry={!showPassword} 
           value={password}
-          onChangeText={setPassword}
+          onChangeText={handlePasswordChange} // Call handlePasswordChange when the password changes
         />
         <TouchableOpacity onPress={handePasswordGenerator} style={{marginRight: 12}}>
           <Ionicons name="key" size={24} color="black" />
