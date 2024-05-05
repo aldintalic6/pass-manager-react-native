@@ -4,12 +4,16 @@ import entryStyles from './EntryScreenStyles';
 import { Ionicons } from '@expo/vector-icons';
 const image = require("../../assets/x.png");
 
-  const EntryScreen = ({ navigation }: { navigation: any }) => {
+const EntryScreen = ({ navigation, route }: { navigation: any, route: any }) => {
+  
+  const { entry } = route.params;
+
+  const { id, title, image, email, password } = entry;
 
   const [photo, setPhoto] = useState(image); 
-  const [name, setName] = useState('X');
-  const [email, setEmail] = useState('usermail@x.com');
-  const [password, setPassword] = useState('password123');
+  const [name, setName] = useState(title);
+  const [entryEmail, setEmail] = useState(email);
+  const [entryPassword, setPassword] = useState(password);
   const [showPassword, setShowPassword] = useState(false);
 
   const handleGoBack = () => {
@@ -59,7 +63,7 @@ const image = require("../../assets/x.png");
       <TextInput
         style={entryStyles.input}
         placeholder="Email"
-        value={email}
+        value={entryEmail}
         editable={false} 
       />
      <View style={entryStyles.passwordInputContainer}>
@@ -67,7 +71,7 @@ const image = require("../../assets/x.png");
           style={entryStyles.passwordInput}
           placeholder="Password"
           secureTextEntry={!showPassword} 
-          value={password}
+          value={entryPassword}
           editable={false} 
         />
         <TouchableOpacity onPress={toggleShowPassword}>

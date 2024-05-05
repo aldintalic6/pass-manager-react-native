@@ -10,12 +10,14 @@ interface Entry {
   id: string;
   title: string;
   image: any;
+  email: string;
+  password: string;
 }
 
 const entries: Entry[] = [
-  { id: '1', title: 'Spotify', image: spotifyImage },
-  { id: '2', title: 'Netflix', image: netflixImage },
-  { id: '3', title: 'X', image: xImage },
+  { id: '1', title: 'Spotify', image: spotifyImage, email: "spotify@mail.com", password: "spotify123" },
+  { id: '2', title: 'Netflix', image: netflixImage, email: "netflix@mail.com", password: "netflix123" },
+  { id: '3', title: 'X', image: xImage, email: "x@mail.com", password: "x123" },
   // more entries will be added
 ];
 
@@ -26,7 +28,7 @@ const EntriesScreen = ({ navigation }: { navigation: any }) => {
   };
   
   const handleEntryPress = (entry: any) => {
-    navigation.navigate('Entry');
+    navigation.navigate('Entry', { entry });
   };
 
   const renderEntryItem = ({ item } : {item : any}) => (
