@@ -3,10 +3,14 @@ import { View, Text, TextInput, Button, Image, TouchableOpacity } from 'react-na
 import addEntryStyles from './AddEntryScreenStyles';
 import { Ionicons } from '@expo/vector-icons';
 import usePasswordValidator from '../../customhooks/passwordValidator';
+import { useSelector, useDispatch } from 'react-redux';
+import { addPassword } from '../../redux/passwordSlice';
 
 const image = require("../../assets/klix.png");
 
 const AddEntryScreen = ({ navigation }: { navigation: any }) => {
+  const dispatch = useDispatch();
+
   const [photo, setPhoto] = useState(null); 
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -25,6 +29,7 @@ const AddEntryScreen = ({ navigation }: { navigation: any }) => {
 
   const handleAddEntry = () => {
     if (isValid) {
+      dispatch(addPassword({ id: 1, value: password }));
       navigation.navigate('Entries');
     } else {
       alert('Please enter a valid password.');

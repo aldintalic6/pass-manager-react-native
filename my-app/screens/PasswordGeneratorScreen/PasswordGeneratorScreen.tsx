@@ -5,7 +5,7 @@ import usePasswordGenerator from '../../customhooks/passwordGenerator';
 import passwordGeneratorStyles from './PasswordGeneratorStyles';
 
 const PasswordGeneratorScreen = ({ navigation }: { navigation: any }) => {
-  const { password, strength, generatePassword } = usePasswordGenerator();
+  const { password, strength, generatePassword } = usePasswordGenerator(); // custom hook
 
   const copyToClipboard = () => {
     Clipboard.setString(password);
