@@ -2,9 +2,12 @@ import React, { useState } from 'react';
 import { View, Text, TextInput, Button, Image, TouchableOpacity, Alert } from 'react-native';
 import entryStyles from './EntryScreenStyles';
 import { Ionicons } from '@expo/vector-icons';
+import { useSelector, useDispatch } from 'react-redux';
+import { deletePassword } from '../../redux/passwordSlice';
 const image = require("../../assets/x.png");
 
 const EntryScreen = ({ navigation, route }: { navigation: any, route: any }) => {
+  const dispatch = useDispatch();
   
   const { entry } = route.params;
 
@@ -25,8 +28,8 @@ const EntryScreen = ({ navigation, route }: { navigation: any, route: any }) => 
   };
 
   const goToEdit = () => {
-    navigation.navigate('EditEntry');
-  };
+    navigation.navigate('EditEntry', { entry: route.params.entry }); // Pass the entry object
+};
 
   const deleteEntry = () => {
     Alert.alert(
@@ -34,7 +37,7 @@ const EntryScreen = ({ navigation, route }: { navigation: any, route: any }) => 
       'Are you sure you want to delete entry?',
       [
         { text: 'Cancel', style: 'cancel' },
-        { text: 'Delete', style: 'destructive', onPress: () => console.log('Entry deleted') }
+        { text: 'Delete', style: 'destructive', onPress: () => dispatch(deletePassword(1)) }
       ],
       { cancelable: false }
     );

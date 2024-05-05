@@ -2,14 +2,20 @@ import React, { useState } from 'react';
 import { View, Text, TextInput, Button, Image, TouchableOpacity, Alert } from 'react-native';
 import editEntryStyles from './EditEntryScreenStyles';
 import { Ionicons } from '@expo/vector-icons';
+import { useSelector, useDispatch } from 'react-redux';
+import { editPassword } from '../../redux/passwordSlice';
 const image = require("../../assets/klix.png");
 
-  const EditEntryScreen = ({ navigation }: { navigation: any }) => {
+const EditEntryScreen = ({ navigation, route }: { navigation: any, route: any }) => {
+    const dispatch = useDispatch();
+
+    const { entry } = route.params;
+    const { id, title, image, email, password } = entry;
 
   const [photo, setPhoto] = useState(image); 
-  const [name, setName] = useState('Klix');
-  const [email, setEmail] = useState('usermail@gmail.com');
-  const [password, setPassword] = useState('password123');
+  const [name, setName] = useState(title);
+  const [entryEmail, setEmail] = useState(email);
+  const [entryPassword, setPassword] = useState(password);
   const [showPassword, setShowPassword] = useState(false);
 
   const handleGoBack = () => {
@@ -31,7 +37,7 @@ const image = require("../../assets/klix.png");
   };
 
   const handleEditEntry = () => {
-    console.log("Entry edited")
+    dispatch(editPassword({ id: 1, value: password }));
     navigation.navigate('Entry');
   };
 
@@ -72,7 +78,7 @@ const image = require("../../assets/klix.png");
             style={editEntryStyles.input}
             placeholder="Email"
             keyboardType="email-address"
-            value={email}
+            value={entryEmail}
             onChangeText={setEmail}
         />
         <View style={editEntryStyles.passwordInputContainer}>
@@ -80,7 +86,7 @@ const image = require("../../assets/klix.png");
                 style={editEntryStyles.passwordInput}
                 placeholder="Password"
                 secureTextEntry={!showPassword} 
-                value={password}
+                value={entryPassword}
                 onChangeText={setPassword}
             />
             <TouchableOpacity onPress={handePasswordGenerator} style={{marginRight: 12}}>

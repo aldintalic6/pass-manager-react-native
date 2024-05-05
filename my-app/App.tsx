@@ -21,7 +21,7 @@ const App = () => {
     <Provider store={store}>
       <NavigationContainer>
         <View style={styles.container}>
-          <Stack.Navigator initialRouteName="AddEntry">
+          <Stack.Navigator initialRouteName="Entries">
             <Stack.Screen name="Login" component={LoginScreen} />
             <Stack.Screen name="Register" component={RegisterScreen} />
             <Stack.Screen name="Entries" component={EntriesScreen} />

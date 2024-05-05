@@ -44,5 +44,5 @@ const passwordSlice = createSlice({
   },
 });
 
-export const { addPassword } = passwordSlice.actions;
+export const { addPassword, editPassword, deletePassword } = passwordSlice.actions;
 export default passwordSlice.reducer;
