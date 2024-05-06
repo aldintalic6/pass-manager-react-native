@@ -24,7 +24,7 @@ const EditEntryScreen = ({ navigation, route }: { navigation: any, route: any })
       'Are you sure you want to discard changes?',
       [
         { text: 'Cancel', style: 'cancel' },
-        { text: 'OK', onPress: () => navigation.navigate('Entry') }
+        { text: 'OK', onPress: () => navigation.navigate('Entry', { entry: route.params.entry }) }
       ],
       { cancelable: false }
     );
@@ -38,7 +38,7 @@ const EditEntryScreen = ({ navigation, route }: { navigation: any, route: any })
 
   const handleEditEntry = () => {
     dispatch(editPassword({ id: 1, value: password }));
-    navigation.navigate('Entry');
+    navigation.navigate('Entry', { entry: route.params.entry });
   };
 
   const handePasswordGenerator = () => {

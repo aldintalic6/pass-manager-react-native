@@ -5,13 +5,14 @@ import { Ionicons } from '@expo/vector-icons';
 import usePasswordValidator from '../../customhooks/passwordValidator';
 import { useSelector, useDispatch } from 'react-redux';
 import { addPassword } from '../../redux/passwordSlice';
+import { addEntry } from '../../redux/entrySlice';
 
 const image = require("../../assets/klix.png");
 
-const AddEntryScreen = ({ navigation }: { navigation: any }) => {
-  const dispatch = useDispatch();
+  const AddEntryScreen = ({ navigation }: { navigation: any }) => {
+    const dispatch = useDispatch();
 
-  const [photo, setPhoto] = useState(null); 
+  const [photo, setPhoto] = useState(image); 
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -29,7 +30,19 @@ const AddEntryScreen = ({ navigation }: { navigation: any }) => {
 
   const handleAddEntry = () => {
     if (isValid) {
-      dispatch(addPassword({ id: 1, value: password }));
+      // Dispatch the addEntry action to add the entry to the Redux store
+      dispatch(
+        addEntry({
+          id: "1", // Assuming you have a way to generate unique IDs, you can use uuidv4 or any other method
+          title: name,
+          image: photo,
+          email: email,
+          password: password,
+        })
+      );
+      setName('');
+      setEmail('');
+      setPassword('');
       navigation.navigate('Entries');
     } else {
       alert('Please enter a valid password.');
