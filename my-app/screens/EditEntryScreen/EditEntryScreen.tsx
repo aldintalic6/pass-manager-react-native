@@ -3,19 +3,19 @@ import { View, Text, TextInput, Button, Image, TouchableOpacity, Alert } from 'r
 import editEntryStyles from './EditEntryScreenStyles';
 import { Ionicons } from '@expo/vector-icons';
 import { useSelector, useDispatch } from 'react-redux';
-import { editPassword } from '../../redux/passwordSlice';
+import { updateEntryTitle, updateEntryEmail, updateEntryPassword } from '../../redux/entrySlice';
 const image = require("../../assets/klix.png");
 
 const EditEntryScreen = ({ navigation, route }: { navigation: any, route: any }) => {
     const dispatch = useDispatch();
 
     const { entry } = route.params;
-    const { id, title, image, email, password } = entry;
+    const { id } = entry;
 
-  const [photo, setPhoto] = useState(image); 
-  const [name, setName] = useState(title);
-  const [entryEmail, setEmail] = useState(email);
-  const [entryPassword, setPassword] = useState(password);
+  const [photo, setPhoto] = useState(entry.image); 
+  const [name, setName] = useState(entry.title);
+  const [entryEmail, setEmail] = useState(entry.email);
+  const [entryPassword, setPassword] = useState(entry.password);
   const [showPassword, setShowPassword] = useState(false);
 
   const handleGoBack = () => {
@@ -37,9 +37,14 @@ const EditEntryScreen = ({ navigation, route }: { navigation: any, route: any })
   };
 
   const handleEditEntry = () => {
-    dispatch(editPassword({ id: 1, value: password }));
-    navigation.navigate('Entry', { entry: route.params.entry });
-  };
+    // Dispatch actions to update entry details
+    dispatch(updateEntryTitle({ id, title: name }));
+    dispatch(updateEntryEmail({ id, email: entryEmail }));
+    dispatch(updateEntryPassword({ id, password: entryPassword }));
+
+    // Navigate back to the EntryScreen
+    navigation.navigate('Entries', { entry });
+};
 
   const handePasswordGenerator = () => {
     navigation.navigate('PasswordGenerator');

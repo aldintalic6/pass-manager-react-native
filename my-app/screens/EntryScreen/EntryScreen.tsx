@@ -9,14 +9,13 @@ const image = require("../../assets/x.png");
 const EntryScreen = ({ navigation, route }: { navigation: any, route: any }) => {
   const dispatch = useDispatch();
   
-  const { entry } = route.params;
+  const entryId = route.params.entryId;
+  const entry = useSelector((state: any) => state.entries.entries.find((e: any) => e.id === entryId));
 
-  const { id, title, image, email, password } = entry;
-
-  const [photo, setPhoto] = useState(image); 
-  const [name, setName] = useState(title);
-  const [entryEmail, setEmail] = useState(email);
-  const [entryPassword, setPassword] = useState(password);
+  const [photo, setPhoto] = useState(entry.image); 
+  const [name, setName] = useState(entry.title);
+  const [entryEmail, setEmail] = useState(entry.email);
+  const [entryPassword, setPassword] = useState(entry.password);
   const [showPassword, setShowPassword] = useState(false);
 
   const handleGoBack = () => {
@@ -28,7 +27,7 @@ const EntryScreen = ({ navigation, route }: { navigation: any, route: any }) => 
   };
 
   const goToEdit = () => {
-    navigation.navigate('EditEntry', { entry: route.params.entry }); // Pass the entry object
+    navigation.navigate('EditEntry', { entry }); // Pass the entry object
 };
 
   const deleteEntry = () => {

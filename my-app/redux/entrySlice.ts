@@ -2,7 +2,7 @@
 
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-interface Entry {
+export interface Entry {
   id: string;
   title: string;
   image: any;
@@ -30,9 +30,26 @@ const entrySlice = createSlice({
     selectEntry(state, action: PayloadAction<Entry>) {
       state.selectedEntry = action.payload;
     },
-    // Add other reducers for updating and deleting entries as needed
+    updateEntryTitle(state, action: PayloadAction<{ id: string, title: string }>) {
+        const entry = state.entries.find(entry => entry.id === action.payload.id);
+        if (entry) {
+          entry.title = action.payload.title;
+        }
+      },
+      updateEntryEmail(state, action: PayloadAction<{ id: string, email: string }>) {
+        const entry = state.entries.find(entry => entry.id === action.payload.id);
+        if (entry) {
+          entry.email = action.payload.email;
+        }
+      },
+      updateEntryPassword(state, action: PayloadAction<{ id: string, password: string }>) {
+        const entry = state.entries.find(entry => entry.id === action.payload.id);
+        if (entry) {
+          entry.password = action.payload.password;
+        }
+      },
   },
 });
 
-export const { addEntry, selectEntry } = entrySlice.actions;
+export const { addEntry, selectEntry, updateEntryTitle, updateEntryEmail, updateEntryPassword } = entrySlice.actions;
 export default entrySlice.reducer;
