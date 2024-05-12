@@ -9,8 +9,9 @@ const netflixImage = require("../../assets/netflix.png");
 const xImage = require("../../assets/x.png");
 
 
-const EntriesScreen = ({ navigation }: { navigation: any }) => {
+const EntriesScreen = ({ navigation, route }: { navigation: any, route: any }) => {
   const entries: Entry[] = useSelector((state: any) => state.entries.entries); // Accessing entries from Redux store
+  
   const handleAddEntry = () => {
     navigation.navigate('AddEntry');
   };

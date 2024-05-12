@@ -48,8 +48,14 @@ const entrySlice = createSlice({
           entry.password = action.payload.password;
         }
       },
+      deleteEntry(state, action: PayloadAction<string>) {
+        state.entries = state.entries.filter(entry => entry.id !== action.payload);
+        if (state.selectedEntry?.id === action.payload) {
+          state.selectedEntry = null;
+        }
+      },
   },
 });
 
-export const { addEntry, selectEntry, updateEntryTitle, updateEntryEmail, updateEntryPassword } = entrySlice.actions;
+export const { addEntry, selectEntry, updateEntryTitle, updateEntryEmail, updateEntryPassword, deleteEntry } = entrySlice.actions;
 export default entrySlice.reducer;

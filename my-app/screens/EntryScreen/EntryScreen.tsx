@@ -3,7 +3,7 @@ import { View, Text, TextInput, Button, Image, TouchableOpacity, Alert } from 'r
 import entryStyles from './EntryScreenStyles';
 import { Ionicons } from '@expo/vector-icons';
 import { useSelector, useDispatch } from 'react-redux';
-import { deletePassword } from '../../redux/passwordSlice';
+import { deleteEntry } from '../../redux/entrySlice';
 const image = require("../../assets/x.png");
 
 const EntryScreen = ({ navigation, route }: { navigation: any, route: any }) => {
@@ -30,13 +30,16 @@ const EntryScreen = ({ navigation, route }: { navigation: any, route: any }) => 
     navigation.navigate('EditEntry', { entry }); // Pass the entry object
 };
 
-  const deleteEntry = () => {
+  const deleteEntryFunction = () => {
     Alert.alert(
       'Delete',
       'Are you sure you want to delete entry?',
       [
         { text: 'Cancel', style: 'cancel' },
-        { text: 'Delete', style: 'destructive', onPress: () => dispatch(deletePassword(1)) }
+        { text: 'Delete', style: 'destructive', onPress: () => {
+          navigation.navigate('Entries', { entry });
+          dispatch(deleteEntry(entryId));
+        }}
       ],
       { cancelable: false }
     );
@@ -84,7 +87,7 @@ const EntryScreen = ({ navigation, route }: { navigation: any, route: any }) => 
         <TouchableOpacity onPress={goToEdit} style={entryStyles.editButton}>
                 <Text style={entryStyles.editButtonText}>Edit Entry</Text>
             </TouchableOpacity>
-            <TouchableOpacity  onPress={deleteEntry} style={entryStyles.deleteButton}>
+            <TouchableOpacity  onPress={deleteEntryFunction} style={entryStyles.deleteButton}>
                 <Text style={entryStyles.deleteButtonText}>Delete Entry</Text>
         </TouchableOpacity>
       </View>
