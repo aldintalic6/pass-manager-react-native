@@ -1,8 +1,12 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, ImageBackground, Alert} from 'react-native';
 import registerStyles from './RegisterScreenStyles';
+import { useDispatch } from 'react-redux';
+import { addUser } from '../../redux/authSlice';
 
 const ReigsterScreen = ({ navigation }: { navigation: any }) => {
+  const dispatch = useDispatch()
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -18,12 +22,16 @@ const ReigsterScreen = ({ navigation }: { navigation: any }) => {
       return;
     }
 
+    dispatch(addUser({ email, password }));
+
     console.log('Email:', email);
     console.log('Password:', password);
     console.log('Confirm Password:', confirmPassword);
     setEmail("");
     setPassword("");
     setConfirmPassword("");
+
+    navigation.navigate('Login');
   };
   
   const handleLogin = () => {

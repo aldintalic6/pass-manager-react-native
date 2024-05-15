@@ -7,7 +7,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { addPassword } from '../../redux/passwordSlice';
 import { addEntry } from '../../redux/entrySlice';
 
-const image = require("../../assets/klix.png");
+// Option to choose picture will be added thorugh a community package
+const image = require("../../assets/klix.png"); 
 
   const AddEntryScreen = ({ navigation }: { navigation: any }) => {
     const dispatch = useDispatch();
