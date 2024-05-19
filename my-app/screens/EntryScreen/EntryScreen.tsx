@@ -18,10 +18,6 @@ const EntryScreen = ({ navigation, route }: { navigation: any, route: any }) => 
   const [entryPassword, setPassword] = useState(entry.password);
   const [showPassword, setShowPassword] = useState(false);
 
-  const handleGoBack = () => {
-    navigation.navigate('Entries');
-  };
-
   const toggleShowPassword = () => {
     setShowPassword(!showPassword); 
   };
@@ -47,11 +43,6 @@ const EntryScreen = ({ navigation, route }: { navigation: any, route: any }) => 
 
   return (
     <View style={entryStyles.container}>
-      <View style={entryStyles.topBar}>
-        <TouchableOpacity onPress={handleGoBack}>
-          <Ionicons name="arrow-back" size={24} color="black" />
-        </TouchableOpacity>
-      </View>
         <View style={entryStyles.imageContainer}>
           {photo ? (
             <Image source={photo} style={entryStyles.image} />

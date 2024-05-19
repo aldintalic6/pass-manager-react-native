@@ -4,14 +4,8 @@ const addEntryStyles = StyleSheet.create({
     container: {
       flex: 1,
       padding: 20,
-      alignItems: 'center'
-    },
-    topBar: {
-      flexDirection: 'row',
-      justifyContent: 'flex-start',
-      marginBottom: 70,
-      paddingTop: 8,
-      width: '100%'
+      alignItems: 'center',
+      justifyContent: 'center'
     },
     imageContainer: {
       width: 150,

@@ -4,13 +4,8 @@ const passwordGeneratorStyles = StyleSheet.create({
     container: {
       flex: 1,
       padding: 20,
-      alignItems: 'center'
-    },
-    topBar: {
-      paddingTop: 8,
-      flexDirection: 'row',
-      justifyContent: 'flex-start',
-      width: '100%',
+      alignItems: 'center',
+      justifyContent: 'center'
     },
     passwordContainer: {
       flex: 1,

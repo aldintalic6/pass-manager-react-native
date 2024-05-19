@@ -62,11 +62,7 @@ const image = require("../../assets/klix.png");
 
   return (
     <View style={addEntryStyles.container}>
-      <View style={addEntryStyles.topBar}>
-        <TouchableOpacity onPress={handleGoBack}>
-          <Ionicons name="arrow-back" size={24} color="black" />
-        </TouchableOpacity>
-      </View>
+      
       <TouchableOpacity onPress={handleChoosePhoto}>
         <View style={addEntryStyles.imageContainer}>
           {photo ? (

@@ -24,7 +24,7 @@ const EditEntryScreen = ({ navigation, route }: { navigation: any, route: any })
       'Are you sure you want to discard changes?',
       [
         { text: 'Cancel', style: 'cancel' },
-        { text: 'OK', onPress: () => navigation.navigate('Entry', { entry: route.params.entry }) }
+        { text: 'OK', onPress: () => navigation.navigate('Entry', { entryId: route.params.entry.id }) }
       ],
       { cancelable: false }
     );
