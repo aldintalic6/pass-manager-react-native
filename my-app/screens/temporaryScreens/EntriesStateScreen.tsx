@@ -12,10 +12,10 @@ const EntriesStateListScreen = ({ navigation }: { navigation: any }) => {
         data={entries}
         renderItem={({ item }) => (
           <View style={{ marginBottom: 5 }}>
-            <Text>{item.id}</Text>
-            <Text>{item.title}</Text>
-            <Text>{item.email}</Text>
-            <Text>{item.password}</Text>
+            <Text>id: {item.id}</Text>
+            <Text>title: {item.title}</Text>
+            <Text>email: {item.email}</Text>
+            <Text>password: {item.password}</Text>
             {/* You can display other entry details as needed */}
           </View>
         )}
