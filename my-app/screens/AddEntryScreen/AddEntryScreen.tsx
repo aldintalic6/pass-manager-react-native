@@ -4,7 +4,6 @@ import addEntryStyles from './AddEntryScreenStyles';
 import { Ionicons } from '@expo/vector-icons';
 import usePasswordValidator from '../../customhooks/passwordValidator';
 import { useSelector, useDispatch } from 'react-redux';
-import { addPassword } from '../../redux/passwordSlice';
 import { addEntry } from '../../redux/entrySlice';
 
 // Option to choose picture will be added thorugh a community package
@@ -22,7 +21,7 @@ const image = require("../../assets/klix.png");
 
   const handleChoosePhoto = () => {
     setPhoto(image);
-    console.log("Photo chosen");
+    console.log("Choose photo feature will be implemented");
   };
 
   const handleGoBack = () => {
@@ -31,10 +30,8 @@ const image = require("../../assets/klix.png");
 
   const handleAddEntry = () => {
     if (isValid) {
-      // Dispatch the addEntry action to add the entry to the Redux store
       dispatch(
-        addEntry({
-          id: "1", // Assuming you have a way to generate unique IDs, you can use uuidv4 or any other method
+        addEntry({ 
           title: name,
           image: photo,
           email: email,

@@ -12,7 +12,7 @@ import AddEntryScreen from './screens/AddEntryScreen/AddEntryScreen';
 import EditEntryScreen from './screens/EditEntryScreen/EditEntryScreen';
 import EntryScreen from './screens/EntryScreen/EntryScreen';
 import PasswordGeneratorScreen from './screens/PasswordGeneratorScreen/PasswordGeneratorScreen';
-import PasswordStateListScreen from './screens/statePasswordsScreen/statePasswordsScreen';
+import EntriesStateListScreen from './screens/temporaryScreens/EntriesStateScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -21,7 +21,7 @@ const App = () => {
     <Provider store={store}>
       <NavigationContainer>
         <View style={styles.container}>
-          <Stack.Navigator initialRouteName="Register">
+          <Stack.Navigator initialRouteName="Entries">
             <Stack.Screen name="Login" component={LoginScreen} />
             <Stack.Screen name="Register" component={RegisterScreen} />
             <Stack.Screen name="Entries" component={EntriesScreen} />
@@ -29,7 +29,7 @@ const App = () => {
             <Stack.Screen name="EditEntry" component={EditEntryScreen} />
             <Stack.Screen name="Entry" component={EntryScreen} />
             <Stack.Screen name="PasswordGenerator" component={PasswordGeneratorScreen} />
-            <Stack.Screen name="PasswordStateList" component={PasswordStateListScreen} />
+            <Stack.Screen name="EntriesStateList" component={EntriesStateListScreen} />
           </Stack.Navigator>
           {/* Use different components to show different screens */}
         </View>

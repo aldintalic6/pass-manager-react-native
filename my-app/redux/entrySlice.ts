@@ -13,19 +13,26 @@ export interface Entry {
 interface EntryState {
   entries: Entry[];
   selectedEntry: Entry | null;
+  currentId: number;
 }
 
 const initialState: EntryState = {
   entries: [],
   selectedEntry: null,
+  currentId: 1,
 };
 
 const entrySlice = createSlice({
   name: 'entries',
   initialState,
   reducers: {
-    addEntry(state, action: PayloadAction<Entry>) {
-      state.entries.push(action.payload);
+    addEntry(state, action: PayloadAction<Omit<Entry, 'id'>>) {
+      const newEntry = {
+        ...action.payload,
+        id: state.currentId.toString(), 
+      };
+      state.entries.push(newEntry);
+      state.currentId = state.currentId + 1; 
     },
     selectEntry(state, action: PayloadAction<Entry>) {
       state.selectedEntry = action.payload;

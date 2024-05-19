@@ -12,6 +12,14 @@ const xImage = require("../../assets/x.png");
 const EntriesScreen = ({ navigation, route }: { navigation: any, route: any }) => {
   const entries: Entry[] = useSelector((state: any) => state.entries.entries); // Accessing entries from Redux store
   
+  const naviga = () => {
+    navigation.navigate('AddEntry');
+  };
+
+  const navigateToEntriesState = () => {
+    navigation.navigate('EntriesStateList');
+  };
+
   const handleAddEntry = () => {
     navigation.navigate('AddEntry');
   };
@@ -32,7 +40,11 @@ const EntriesScreen = ({ navigation, route }: { navigation: any, route: any }) =
   return (
     <View style={entriesStyles.container}>
       <View style={entriesStyles.topBar}>
-        <Button title="Add" onPress={handleAddEntry} />
+      <View style={entriesStyles.leftButtons}>
+          <Button title="Entries state" onPress={navigateToEntriesState} />
+          <Button title="Login state" onPress={handleAddEntry} />
+        </View>
+        <Button title="Add" onPress={handleAddEntry}  />
       </View>
       <SectionList
         sections={[{ title: 'Entries', data: entries }]}

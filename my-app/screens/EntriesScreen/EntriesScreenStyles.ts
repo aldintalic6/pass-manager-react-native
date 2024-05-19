@@ -8,8 +8,16 @@ const entriesStyles = StyleSheet.create({
     },
     topBar: {
       flexDirection: 'row',
-      justifyContent: 'flex-end',
+      justifyContent: 'space-between',
       paddingTop: 8
+    },
+    leftButtons: {
+      flexDirection: 'row',
+      flex: 1,
+    },
+    addButton: {
+      flex: 0,
+      alignSelf: 'flex-end',
     },
     title: {
       fontSize: 24,
