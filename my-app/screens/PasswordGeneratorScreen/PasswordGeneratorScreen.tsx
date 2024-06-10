@@ -42,11 +42,6 @@ const PasswordGeneratorScreen = () => {
 
   return (
     <View style={passwordGeneratorStyles.container}>
-        <View style={passwordGeneratorStyles.topBar}>
-            <TouchableOpacity onPress={handleGoBack}>
-                <Ionicons name="arrow-back" size={24} color="black" />
-            </TouchableOpacity>
-        </View>
         <View style={passwordGeneratorStyles.passwordContainer}>
       <Text style={passwordGeneratorStyles.label}>Password: {password}</Text>
       <Text style={passwordGeneratorStyles.label}>Strength: {strength}</Text>
@@ -62,3 +57,4 @@ const PasswordGeneratorScreen = () => {
 };
 
 export default PasswordGeneratorScreen;
+

@@ -2,34 +2,58 @@ import React, { useState } from 'react';
 import { View, Text, TextInput, Button, Image, TouchableOpacity } from 'react-native';
 import addEntryStyles from './AddEntryScreenStyles';
 import { Ionicons } from '@expo/vector-icons';
-const image = require("../../assets/klix.png");
+import usePasswordValidator from '../../customhooks/passwordValidator';
+import { useSelector, useDispatch } from 'react-redux';
+import { addEntry } from '../../redux/entrySlice';
 
-const AddEntryScreen = () => {
-  const [photo, setPhoto] = useState(null); 
+// Option to choose picture will be added thorugh a community package
+const image = require("../../assets/klix.png"); 
+
+  const AddEntryScreen = ({ navigation }: { navigation: any }) => {
+    const dispatch = useDispatch();
+
+  const [photo, setPhoto] = useState(image); 
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
+  const { isValid, validatePassword } = usePasswordValidator(); // custom hook
 
   const handleChoosePhoto = () => {
     setPhoto(image);
-    console.log("Photo chosen");
+    console.log("Choose photo feature will be implemented");
   };
 
   const handleGoBack = () => {
-    console.log("Went back")
+    navigation.navigate('Entries');
   };
 
   const handleAddEntry = () => {
-    console.log("Entry added")
-    setName("");
-    setEmail("");
-    setPassword("");
-    setPhoto(null);
+    if (isValid) {
+      dispatch(
+        addEntry({ 
+          title: name,
+          image: photo,
+          email: email,
+          password: password,
+        })
+      );
+      setName('');
+      setEmail('');
+      setPassword('');
+      navigation.navigate('Entries');
+    } else {
+      alert('Please enter a valid password.');
+    }
+  };
+
+  const handlePasswordChange = (value : any) => {
+    setPassword(value);
+    validatePassword(value);
   };
 
   const handePasswordGenerator = () => {
-    console.log("Went to password generator")
+    navigation.navigate('PasswordGenerator');
   };
 
   const toggleShowPassword = () => {
@@ -38,11 +62,7 @@ const AddEntryScreen = () => {
 
   return (
     <View style={addEntryStyles.container}>
-      <View style={addEntryStyles.topBar}>
-        <TouchableOpacity onPress={handleGoBack}>
-          <Ionicons name="arrow-back" size={24} color="black" />
-        </TouchableOpacity>
-      </View>
+      
       <TouchableOpacity onPress={handleChoosePhoto}>
         <View style={addEntryStyles.imageContainer}>
           {photo ? (
@@ -71,7 +91,7 @@ const AddEntryScreen = () => {
           placeholder="Password"
           secureTextEntry={!showPassword} 
           value={password}
-          onChangeText={setPassword}
+          onChangeText={handlePasswordChange} // Call handlePasswordChange when the password changes
         />
         <TouchableOpacity onPress={handePasswordGenerator} style={{marginRight: 12}}>
           <Ionicons name="key" size={24} color="black" />

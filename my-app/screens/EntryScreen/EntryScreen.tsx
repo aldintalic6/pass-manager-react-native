@@ -2,34 +2,40 @@ import React, { useState } from 'react';
 import { View, Text, TextInput, Button, Image, TouchableOpacity, Alert } from 'react-native';
 import entryStyles from './EntryScreenStyles';
 import { Ionicons } from '@expo/vector-icons';
+import { useSelector, useDispatch } from 'react-redux';
+import { deleteEntry } from '../../redux/entrySlice';
 const image = require("../../assets/x.png");
 
-const EntryScreen = () => {
-  const [photo, setPhoto] = useState(image); 
-  const [name, setName] = useState('X');
-  const [email, setEmail] = useState('usermail@x.com');
-  const [password, setPassword] = useState('password123');
-  const [showPassword, setShowPassword] = useState(false);
+const EntryScreen = ({ navigation, route }: { navigation: any, route: any }) => {
+  const dispatch = useDispatch();
+  
+  const entryId = route.params.entryId;
+  const entry = useSelector((state: any) => state.entries.entries.find((e: any) => e.id === entryId));
 
-  const handleGoBack = () => {
-    console.log("Went back to entries screen")
-  };
+  const [photo, setPhoto] = useState(entry.image); 
+  const [name, setName] = useState(entry.title);
+  const [entryEmail, setEmail] = useState(entry.email);
+  const [entryPassword, setPassword] = useState(entry.password);
+  const [showPassword, setShowPassword] = useState(false);
 
   const toggleShowPassword = () => {
     setShowPassword(!showPassword); 
   };
 
   const goToEdit = () => {
-    console.log("Went to edit screen!")
-  };
+    navigation.navigate('EditEntry', { entry }); // Pass the entry object
+};
 
-  const deleteEntry = () => {
+  const deleteEntryFunction = () => {
     Alert.alert(
       'Delete',
       'Are you sure you want to delete entry?',
       [
         { text: 'Cancel', style: 'cancel' },
-        { text: 'Delete', style: 'destructive', onPress: () => console.log('Entry deleted') }
+        { text: 'Delete', style: 'destructive', onPress: () => {
+          navigation.navigate('Entries', { entry });
+          dispatch(deleteEntry(entryId));
+        }}
       ],
       { cancelable: false }
     );
@@ -37,11 +43,6 @@ const EntryScreen = () => {
 
   return (
     <View style={entryStyles.container}>
-      <View style={entryStyles.topBar}>
-        <TouchableOpacity onPress={handleGoBack}>
-          <Ionicons name="arrow-back" size={24} color="black" />
-        </TouchableOpacity>
-      </View>
         <View style={entryStyles.imageContainer}>
           {photo ? (
             <Image source={photo} style={entryStyles.image} />
@@ -58,7 +59,7 @@ const EntryScreen = () => {
       <TextInput
         style={entryStyles.input}
         placeholder="Email"
-        value={email}
+        value={entryEmail}
         editable={false} 
       />
      <View style={entryStyles.passwordInputContainer}>
@@ -66,7 +67,7 @@ const EntryScreen = () => {
           style={entryStyles.passwordInput}
           placeholder="Password"
           secureTextEntry={!showPassword} 
-          value={password}
+          value={entryPassword}
           editable={false} 
         />
         <TouchableOpacity onPress={toggleShowPassword}>
@@ -77,7 +78,7 @@ const EntryScreen = () => {
         <TouchableOpacity onPress={goToEdit} style={entryStyles.editButton}>
                 <Text style={entryStyles.editButtonText}>Edit Entry</Text>
             </TouchableOpacity>
-            <TouchableOpacity  onPress={deleteEntry} style={entryStyles.deleteButton}>
+            <TouchableOpacity  onPress={deleteEntryFunction} style={entryStyles.deleteButton}>
                 <Text style={entryStyles.deleteButtonText}>Delete Entry</Text>
         </TouchableOpacity>
       </View>
