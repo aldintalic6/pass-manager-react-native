@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, TouchableOpacity, ImageBackground, Alert } from 'react-native';
 import loginStyles from './LoginScreenStyles';
 import { useDispatch, useSelector } from 'react-redux';
-import { loginStart, loginSuccess, loginFailure } from '../../redux/authSlice';
+import { setUsers, loginStart, loginSuccess, loginFailure, loadUsersFromStorage } from '../../redux/authSlice';
 
 const LoginScreen = ({ navigation }: { navigation: any }) => {
   const dispatch = useDispatch();
@@ -10,6 +10,14 @@ const LoginScreen = ({ navigation }: { navigation: any }) => {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
+  useEffect(() => {
+    const loadUsers = async () => {
+      const storedUsers = await loadUsersFromStorage();
+      dispatch(setUsers(storedUsers));
+    };
+    loadUsers();
+  }, [dispatch]);
 
   const handleLogin = () => {
     if (email === '' || password === '') {

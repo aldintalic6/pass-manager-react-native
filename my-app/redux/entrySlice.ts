@@ -83,6 +83,7 @@ const entrySlice = createSlice({
         if (state.selectedEntry?.id === action.payload) {
           state.selectedEntry = null;
         }
+        saveEntriesToStorage(state.entries, state.currentId); // Save to AsyncStorage
       },
       getEntriesFromAsyncStorage(state, action: PayloadAction<{ entries: Entry[], currentId: number }>) {
         state.entries = action.payload.entries;
