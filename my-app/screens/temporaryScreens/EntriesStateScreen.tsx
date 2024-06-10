@@ -1,13 +1,20 @@
 import React from 'react';
-import { View, Text, FlatList } from 'react-native';
-import { useSelector } from 'react-redux';
+import { View, Text, FlatList, Button } from 'react-native';
+import { useSelector, useDispatch } from 'react-redux';
+import { clearEntries } from '../../redux/entrySlice';
 
 const EntriesStateListScreen = ({ navigation }: { navigation: any }) => {
   const entries = useSelector((state: any) => state.entries.entries); // Access the correct slice
+  const dispatch = useDispatch();
+
+  const handleResetEntries = () => {
+    dispatch(clearEntries());
+  };
 
   return (
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
       <Text style={{ fontSize: 20, marginBottom: 10 }}>Temporary screen to test if state works</Text>
+      <Button title="Reset Entries" onPress={handleResetEntries} />
       <FlatList
         data={entries}
         renderItem={({ item }) => (

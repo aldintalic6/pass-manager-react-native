@@ -1,8 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { View, Text, Button, SectionList, Image, TouchableOpacity} from 'react-native';
 import entriesStyles from './EntriesScreenStyles';
 import { Entry } from '../../redux/entrySlice';
-import { useSelector } from 'react-redux';
+import { getEntriesFromAsyncStorage } from '../../redux/entrySlice';
+import { useDispatch, useSelector } from 'react-redux';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 
 // const spotifyImage = require("../../assets/spotify.png");
 // const netflixImage = require("../../assets/netflix.png");
@@ -10,7 +13,25 @@ import { useSelector } from 'react-redux';
 
 
 const EntriesScreen = ({ navigation, route }: { navigation: any, route: any }) => {
-  const entries: Entry[] = useSelector((state: any) => state.entries.entries); // Accessing entries from Redux store
+  const entries: Entry[] = useSelector((state: any) => state.entries.entries); // accessing entries slice to get entires array from Redux store
+  const dispatch = useDispatch();
+
+  // loading data from device storage
+  useEffect(() => {
+    const loadEntries = async () => {
+      try {
+        const storedEntries = await AsyncStorage.getItem('entries');
+        const storedCurrentId = await AsyncStorage.getItem('currentId');
+        if (storedEntries && storedCurrentId) {
+          dispatch(getEntriesFromAsyncStorage({ entries: JSON.parse(storedEntries), currentId: JSON.parse(storedCurrentId) }));
+        }
+      } catch (error) {
+        console.error('Failed to load entries from storage', error);
+      }
+    };
+
+    loadEntries();
+  }, [dispatch]);
 
   const navigateToEntriesState = () => {
     navigation.navigate('EntriesStateList');
