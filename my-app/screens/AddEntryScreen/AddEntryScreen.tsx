@@ -5,6 +5,7 @@ import { Ionicons } from '@expo/vector-icons';
 import usePasswordValidator from '../../customhooks/passwordValidator';
 import { useSelector, useDispatch } from 'react-redux';
 import { addEntry } from '../../redux/entrySlice';
+import * as ImagePicker from 'expo-image-picker'; // Import expo-image-picker
 
 // Option to choose picture will be added thorugh a community package
 const image = require("../../assets/klix.png"); 
@@ -12,16 +13,24 @@ const image = require("../../assets/klix.png");
   const AddEntryScreen = ({ navigation }: { navigation: any }) => {
     const dispatch = useDispatch();
 
-  const [photo, setPhoto] = useState(image); 
+  const [photo, setPhoto] = useState<string | null>(null); // State for the chosen photo
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const { isValid, validatePassword } = usePasswordValidator(); // custom hook
 
-  const handleChoosePhoto = () => {
-    setPhoto(image);
-    console.log("Choose photo feature will be implemented");
+  const handleChoosePhoto = async () => {
+    const permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
+    if (permissionResult.granted === false) {
+      alert('Permission to access camera roll is required!');
+      return;
+    }
+
+    const pickerResult = await ImagePicker.launchImageLibraryAsync();
+    if (!pickerResult.canceled) {
+      setPhoto(pickerResult.assets[0].uri);
+    }
   };
 
   const handleGoBack = () => {
@@ -33,7 +42,7 @@ const image = require("../../assets/klix.png");
       dispatch(
         addEntry({ 
           title: name,
-          image: photo,
+          image: photo ? { uri: photo } : null, // Set image property with correct format
           email: email,
           password: password,
         })
@@ -65,8 +74,8 @@ const image = require("../../assets/klix.png");
       
       <TouchableOpacity onPress={handleChoosePhoto}>
         <View style={addEntryStyles.imageContainer}>
-          {photo ? (
-            <Image source={photo} style={addEntryStyles.image} />
+        {photo ? (
+            <Image source={{ uri: photo }} style={addEntryStyles.image} />
           ) : (
             <Text style={addEntryStyles.choosePhotoText}>Choose Photo</Text>
           )}

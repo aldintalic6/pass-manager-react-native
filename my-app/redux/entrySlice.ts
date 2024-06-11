@@ -78,6 +78,13 @@ const entrySlice = createSlice({
           saveEntriesToStorage(state.entries, state.currentId); // Save to AsyncStorage
         }
       },
+      updateEntryImage(state, action: PayloadAction<{ id: string, image: any }>) {
+        const entry = state.entries.find(entry => entry.id === action.payload.id);
+        if (entry) {
+          entry.image = action.payload.image;
+          saveEntriesToStorage(state.entries, state.currentId);
+        }
+      },
       deleteEntry(state, action: PayloadAction<string>) {
         state.entries = state.entries.filter(entry => entry.id !== action.payload);
         if (state.selectedEntry?.id === action.payload) {
@@ -97,5 +104,5 @@ const entrySlice = createSlice({
   },
 });
 
-export const { addEntry, selectEntry, updateEntryTitle, updateEntryEmail, updateEntryPassword, deleteEntry, getEntriesFromAsyncStorage, clearEntries } = entrySlice.actions;
+export const { addEntry, selectEntry, updateEntryTitle, updateEntryEmail, updateEntryPassword, updateEntryImage, deleteEntry, getEntriesFromAsyncStorage, clearEntries } = entrySlice.actions;
 export default entrySlice.reducer;
