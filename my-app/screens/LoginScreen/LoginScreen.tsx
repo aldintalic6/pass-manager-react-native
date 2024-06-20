@@ -66,6 +66,7 @@ const LoginScreen = ({ navigation, setIsAuthenticated }: { navigation: any, setI
             style={loginStyles.input}
             placeholder="Email or username"
             keyboardType="default"
+            autoCapitalize="none"
             value={email || username} 
             onChangeText={handleTextChange}
           />
@@ -73,6 +74,7 @@ const LoginScreen = ({ navigation, setIsAuthenticated }: { navigation: any, setI
             style={loginStyles.input}
             placeholder="Password"
             secureTextEntry={true}
+            autoCapitalize="none"
             value={password}
             onChangeText={text => setPassword(text)}
           />

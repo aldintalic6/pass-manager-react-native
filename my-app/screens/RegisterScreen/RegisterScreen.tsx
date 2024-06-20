@@ -71,6 +71,7 @@ const ReigsterScreen = ({ navigation }: { navigation: any }) => {
             style={registerStyles.input}
             placeholder="Email"
             keyboardType="email-address"
+            autoCapitalize="none"
             value={email}
             onChangeText={text => setEmail(text)}
           />
@@ -78,6 +79,7 @@ const ReigsterScreen = ({ navigation }: { navigation: any }) => {
             style={registerStyles.input}
             placeholder="Username"
             keyboardType="default"
+            autoCapitalize="none"
             value={username}
             onChangeText={text => setUsername(text)}
           />
@@ -85,6 +87,7 @@ const ReigsterScreen = ({ navigation }: { navigation: any }) => {
             style={registerStyles.input}
             placeholder="Password"
             secureTextEntry={true}
+            autoCapitalize="none"
             value={password}
             onChangeText={text => setPassword(text)}
           />
@@ -92,6 +95,7 @@ const ReigsterScreen = ({ navigation }: { navigation: any }) => {
             style={registerStyles.input}
             placeholder="Confirm Password"
             secureTextEntry={true}
+            autoCapitalize="none"
             value={confirmPassword}
             onChangeText={text => setConfirmPassword(text)}
           />
