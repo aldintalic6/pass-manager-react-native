@@ -3,6 +3,7 @@ import { View, Text, TextInput, TouchableOpacity, ImageBackground, Alert} from '
 import registerStyles from './RegisterScreenStyles';
 import { useDispatch } from 'react-redux';
 import { addUser } from '../../redux/authSlice';
+import { checkPasswordPwned } from '../../additional/HIBW';
 
 const ReigsterScreen = ({ navigation }: { navigation: any }) => {
   const dispatch = useDispatch()
@@ -11,7 +12,7 @@ const ReigsterScreen = ({ navigation }: { navigation: any }) => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
-  const handleRegister = () => {
+  const handleRegister = async () => {
     if (email === '' || password === '' || confirmPassword === '') {
       Alert.alert('Please fill in all fields');
       return;
@@ -19,6 +20,17 @@ const ReigsterScreen = ({ navigation }: { navigation: any }) => {
 
     if (password !== confirmPassword) {
       Alert.alert('Passwords do not match');
+      return;
+    }
+
+    try {
+      const isPwned = await checkPasswordPwned(password);
+      if (isPwned) {
+        Alert.alert('This password was found in a data breach using HIBW API. Please choose a different one.');
+        return;
+      }
+    } catch (error) {
+      Alert.alert('Failed to check password. Please try again.');
       return;
     }
 
