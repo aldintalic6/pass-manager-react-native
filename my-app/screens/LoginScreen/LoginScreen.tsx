@@ -9,6 +9,7 @@ const LoginScreen = ({ navigation, setIsAuthenticated }: { navigation: any, setI
   const users = useSelector((state: any) => state.auth.users);
 
   const [email, setEmail] = useState('');
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
   useEffect(() => {
@@ -20,13 +21,13 @@ const LoginScreen = ({ navigation, setIsAuthenticated }: { navigation: any, setI
   }, [dispatch]);
 
   const handleLogin = () => {
-    if (email === '' || password === '') {
+    if (!email && !username || password === '') {
       Alert.alert('Please fill in all fields');
       dispatch(loginFailure('Error logging in'));
       return;
     }
 
-    const user = users.find((user: any) => user.email === email && user.password === password);
+    const user = users.find((user: any) => (user.email === email || user.username === username) && user.password === password);
     if (!user) {
       Alert.alert('Invalid email or password');
       return;
@@ -47,17 +48,26 @@ const LoginScreen = ({ navigation, setIsAuthenticated }: { navigation: any, setI
     navigation.navigate('Register');
   };
 
+  const handleTextChange = (text: string) => {
+    if (text.includes('@')) {
+      setEmail(text); 
+      setUsername(''); 
+    } else {
+      setUsername(text); 
+      setEmail(''); 
+    }
+  };
+
   return (
     <ImageBackground source={require('../../assets/login_background.jpeg')} style={loginStyles.background}>
       <View style={loginStyles.container}>
-      <Text style={loginStyles.title}>Login</Text>
         <View style={loginStyles.loginBox}>
           <TextInput
             style={loginStyles.input}
-            placeholder="Email"
-            keyboardType="email-address"
-            value={email}
-            onChangeText={text => setEmail(text)}
+            placeholder="Email or username"
+            keyboardType="default"
+            value={email || username} 
+            onChangeText={handleTextChange}
           />
           <TextInput
             style={loginStyles.input}

@@ -9,12 +9,18 @@ const ReigsterScreen = ({ navigation }: { navigation: any }) => {
   const dispatch = useDispatch()
 
   const [email, setEmail] = useState('');
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
   const handleRegister = async () => {
-    if (email === '' || password === '' || confirmPassword === '') {
+    if (email === '' || username === '' || password === '' || confirmPassword === '') {
       Alert.alert('Please fill in all fields');
+      return;
+    }
+
+    if (!isEmailValid(email)) {
+      Alert.alert('Email is not in valid format!');
       return;
     }
 
@@ -34,12 +40,14 @@ const ReigsterScreen = ({ navigation }: { navigation: any }) => {
       return;
     }
 
-    dispatch(addUser({ email, password }));
+    dispatch(addUser({ email, password, username }));
 
     console.log('Email:', email);
+    console.log('Username:', username);
     console.log('Password:', password);
     console.log('Confirm Password:', confirmPassword);
     setEmail("");
+    setUsername("");
     setPassword("");
     setConfirmPassword("");
 
@@ -49,6 +57,10 @@ const ReigsterScreen = ({ navigation }: { navigation: any }) => {
   const handleLogin = () => {
     
     navigation.navigate('Login');
+  };
+
+  const isEmailValid = (email: string) => {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
   };
 
   return (
@@ -61,6 +73,13 @@ const ReigsterScreen = ({ navigation }: { navigation: any }) => {
             keyboardType="email-address"
             value={email}
             onChangeText={text => setEmail(text)}
+          />
+          <TextInput
+            style={registerStyles.input}
+            placeholder="Username"
+            keyboardType="default"
+            value={username}
+            onChangeText={text => setUsername(text)}
           />
           <TextInput
             style={registerStyles.input}

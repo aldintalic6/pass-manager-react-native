@@ -14,7 +14,6 @@ import EntryScreen from './screens/EntryScreen/EntryScreen';
 import PasswordGeneratorScreen from './screens/PasswordGeneratorScreen/PasswordGeneratorScreen';
 import EntriesStateListScreen from './screens/temporaryScreens/EntriesStateScreen';
 
-const Stack = createNativeStackNavigator();
 const AuthStack = createNativeStackNavigator();
 const MainStack = createNativeStackNavigator();
 

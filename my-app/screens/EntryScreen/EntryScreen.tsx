@@ -23,7 +23,7 @@ const EntryScreen = ({ navigation, route }: { navigation: any, route: any }) => 
   };
 
   const goToEdit = () => {
-    navigation.navigate('EditEntry', { entry }); // Pass the entry object
+    navigation.navigate('EditEntry', { entry }); 
 };
 
   const deleteEntryFunction = () => {

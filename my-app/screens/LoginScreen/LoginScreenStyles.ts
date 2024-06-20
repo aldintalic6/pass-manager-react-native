@@ -18,12 +18,6 @@ const loginStyles = StyleSheet.create({
       borderRadius: 10,
       padding: 20,
     },
-    title: {
-      fontSize: 24,
-      fontWeight: 'bold',
-      marginBottom: 40,
-      color: '#fff'
-    },
     input: {
       width: '100%',
       height: 40,
