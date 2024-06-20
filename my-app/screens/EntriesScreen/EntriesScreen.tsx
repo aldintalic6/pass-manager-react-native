@@ -12,7 +12,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 // const xImage = require("../../assets/x.png");
 
 
-const EntriesScreen = ({ navigation, route }: { navigation: any, route: any }) => {
+const EntriesScreen = ({ navigation, route, setIsAuthenticated }: { navigation: any, route: any, setIsAuthenticated: React.Dispatch<React.SetStateAction<boolean>> }) => {
   const entries: Entry[] = useSelector((state: any) => state.entries.entries); // accessing entries slice to get entires array from Redux store
   const dispatch = useDispatch();
 
@@ -45,6 +45,10 @@ const EntriesScreen = ({ navigation, route }: { navigation: any, route: any }) =
     navigation.navigate('Entry', { entryId });
   };
 
+  const handleLogout = () => {
+    setIsAuthenticated(false); 
+  };
+
   const renderEntryItem = ({ item }: { item: Entry }) => (
     <TouchableOpacity onPress={() => handleEntryPress(item.id)}>
       <View style={entriesStyles.entryItem}>
@@ -57,8 +61,9 @@ const EntriesScreen = ({ navigation, route }: { navigation: any, route: any }) =
   return (
     <View style={entriesStyles.container}>
       <View style={entriesStyles.topBar}>
-      <View style={entriesStyles.leftButtons}>
+        <View style={entriesStyles.leftButtons}>
           <Button title="Entries state" onPress={navigateToEntriesState} />
+          <Button title="Logout" onPress={handleLogout} />
         </View>
         <Button title="Add" onPress={handleAddEntry}  />
       </View>

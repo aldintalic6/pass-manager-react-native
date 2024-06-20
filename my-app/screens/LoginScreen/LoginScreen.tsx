@@ -4,7 +4,7 @@ import loginStyles from './LoginScreenStyles';
 import { useDispatch, useSelector } from 'react-redux';
 import { setUsers, loginStart, loginSuccess, loginFailure, loadUsersFromStorage } from '../../redux/authSlice';
 
-const LoginScreen = ({ navigation }: { navigation: any }) => {
+const LoginScreen = ({ navigation, setIsAuthenticated }: { navigation: any, setIsAuthenticated: React.Dispatch<React.SetStateAction<boolean>> }) => {
   const dispatch = useDispatch();
   const users = useSelector((state: any) => state.auth.users);
 
@@ -38,7 +38,7 @@ const LoginScreen = ({ navigation }: { navigation: any }) => {
       setEmail("");
       setPassword("");
       dispatch(loginSuccess(user));
-      navigation.navigate('Entries'); 
+      setIsAuthenticated(true);
     }, 1000);
   };
 
