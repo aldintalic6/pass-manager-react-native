@@ -1,36 +1,12 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, } from 'react-native';
 import passwordGeneratorStyles from './PasswordGeneratorStyles';
+import usePasswordGenerator from '../../customhooks/passwordGenerator';
 import { Ionicons } from '@expo/vector-icons';
 import * as Clipboard from 'expo-clipboard';
 
 const PasswordGeneratorScreen = () => {
-  const [password, setPassword] = useState('');
-  const [strength, setStrength] = useState('');
-
-  const generatePassword = () => {
-    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+';
-    const passwordLength = Math.floor(Math.random() * 10) + 5; 
-    let password = '';
-    for (let i = 0; i < passwordLength; i++) {
-      const randomIndex = Math.floor(Math.random() * characters.length);
-      password = password + characters[randomIndex];
-    }
-    return password;
-  };
-
-  const generateNewPassword = () => {
-    const newPassword = generatePassword();
-    setPassword(newPassword);
-    setStrength(calculateStrength(newPassword));
-  };
-
-  const calculateStrength = (password : any) => {
-    const length = password.length;
-    if (length < 6) return 'Weak';
-    if (length < 10) return 'Medium';
-    return 'Strong';
-  };
+  const { password, strength, generatePassword } = usePasswordGenerator();
 
   const copyToClipboard = () => {
     Clipboard.setString(password);
@@ -48,7 +24,7 @@ const PasswordGeneratorScreen = () => {
           </TouchableOpacity>
         </View>
         <Text style={passwordGeneratorStyles.strengthText}>Strength: {strength}</Text>
-        <TouchableOpacity onPress={generateNewPassword} style={passwordGeneratorStyles.generateButton}>
+        <TouchableOpacity onPress={generatePassword} style={passwordGeneratorStyles.generateButton}>
           <Text style={passwordGeneratorStyles.buttonText}>Generate Password</Text>
         </TouchableOpacity>
       </View>
