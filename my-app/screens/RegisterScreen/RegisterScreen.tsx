@@ -71,7 +71,7 @@ const ReigsterScreen = ({ navigation }: { navigation: any }) => {
   };
 
   return (
-    <ImageBackground source={require('../../assets/login_background.jpeg')} style={registerStyles.background}>
+    <ImageBackground source={require('../../assets/gray.jpeg')} style={registerStyles.background}>
       <View style={registerStyles.container}>
         <View style={registerStyles.loginBox}>
           <TextInput

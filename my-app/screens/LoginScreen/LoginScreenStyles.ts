@@ -46,8 +46,8 @@ const loginStyles = StyleSheet.create({
       width: '100%'
     },
     signUpText: {
-      marginTop: 10, // Add some space between the button and the "Sign Up" text
-      color: '#606060', // Color of the "Sign Up" text
+      marginTop: 10, 
+      color: '#606060', 
       textDecorationLine: 'underline'
     }
   });

@@ -59,7 +59,7 @@ const LoginScreen = ({ navigation, setIsAuthenticated }: { navigation: any, setI
   };
 
   return (
-    <ImageBackground source={require('../../assets/login_background.jpeg')} style={loginStyles.background}>
+    <ImageBackground source={require('../../assets/gray.jpeg')} style={loginStyles.background}>
       <View style={loginStyles.container}>
         <View style={loginStyles.loginBox}>
           <TextInput
