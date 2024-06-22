@@ -3,6 +3,7 @@ import { View, Text, TextInput, TouchableOpacity, ImageBackground, Alert} from '
 import registerStyles from './RegisterScreenStyles';
 import { useDispatch } from 'react-redux';
 import { addUser } from '../../redux/authSlice';
+import usePasswordValidator from '../../customhooks/passwordValidator';
 import { checkPasswordPwned } from '../../additional/HIBW';
 
 const ReigsterScreen = ({ navigation }: { navigation: any }) => {
@@ -12,6 +13,7 @@ const ReigsterScreen = ({ navigation }: { navigation: any }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const { isValid, validatePassword } = usePasswordValidator(); // custom hook
 
   const handleRegister = async () => {
     if (email === '' || username === '' || password === '' || confirmPassword === '') {
@@ -21,6 +23,11 @@ const ReigsterScreen = ({ navigation }: { navigation: any }) => {
 
     if (!isEmailValid(email)) {
       Alert.alert('Email is not in valid format!');
+      return;
+    }
+
+    if (!isValid) {
+      Alert.alert('Password does not meet the criteria. Password needs to have a capital letter and minimum 8 charactetrs');
       return;
     }
 
@@ -89,7 +96,10 @@ const ReigsterScreen = ({ navigation }: { navigation: any }) => {
             secureTextEntry={true}
             autoCapitalize="none"
             value={password}
-            onChangeText={text => setPassword(text)}
+            onChangeText={text => {
+              setPassword(text);
+              validatePassword(text);
+            }}
           />
           <TextInput
             style={registerStyles.input}

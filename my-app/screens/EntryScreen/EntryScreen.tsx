@@ -4,6 +4,7 @@ import entryStyles from './EntryScreenStyles';
 import { Ionicons } from '@expo/vector-icons';
 import { useSelector, useDispatch } from 'react-redux';
 import { deleteEntry } from '../../redux/entrySlice';
+import * as Clipboard from 'expo-clipboard';
 
 const EntryScreen = ({ navigation, route }: { navigation: any, route: any }) => {
   const dispatch = useDispatch();
@@ -23,6 +24,11 @@ const EntryScreen = ({ navigation, route }: { navigation: any, route: any }) => 
 
   const goToEdit = () => {
     navigation.navigate('EditEntry', { entry }); 
+};
+
+const copyToClipboard = (text : string) => {
+  Clipboard.setString(text);
+  alert('Copied to clipboard!');
 };
 
   const deleteEntryFunction = () => {
@@ -49,28 +55,41 @@ return (
         <Text style={entryStyles.choosePhotoText}>No Photo</Text>
       )}
     </View>
-    <TextInput
-      style={entryStyles.input}
-      placeholder="Name"
-      value={name}
-      editable={false}
-    />
-    <TextInput
-      style={entryStyles.input}
-      placeholder="Email"
-      value={entryEmail}
-      editable={false}
-    />
-    <View style={entryStyles.passwordInputContainer}>
+    <View style={entryStyles.inputContainer}>
       <TextInput
-        style={entryStyles.passwordInput}
+        style={entryStyles.input}
+        placeholder="Name"
+        value={name}
+        editable={false}
+      />
+      <TouchableOpacity onPress={() => copyToClipboard(name)} style={entryStyles.iconButton}>
+        <Ionicons name="copy" size={24} color="#555" />
+      </TouchableOpacity>
+    </View>
+    <View style={entryStyles.inputContainer}>
+      <TextInput
+        style={entryStyles.input}
+        placeholder="Email"
+        value={entryEmail}
+        editable={false}
+      />
+       <TouchableOpacity onPress={() => copyToClipboard(entryEmail)} style={entryStyles.iconButton}>
+        <Ionicons name="copy" size={24} color="#555" />
+      </TouchableOpacity>
+    </View>
+    <View style={entryStyles.inputContainer}>
+      <TextInput
+        style={entryStyles.input}
         placeholder="Password"
         secureTextEntry={!showPassword}
         value={entryPassword}
         editable={false}
       />
-      <TouchableOpacity onPress={toggleShowPassword}>
+      <TouchableOpacity onPress={toggleShowPassword} style={entryStyles.iconButton}>
         <Ionicons name={showPassword ? "eye-off" : "eye"} size={24} color="#555" />
+      </TouchableOpacity>
+      <TouchableOpacity onPress={() => copyToClipboard(entryPassword)} style={entryStyles.iconButton}>
+        <Ionicons name="copy" size={24} color="#555" />
       </TouchableOpacity>
     </View>
     <View style={entryStyles.buttons}>

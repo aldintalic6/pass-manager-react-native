@@ -37,7 +37,6 @@ const PasswordGeneratorScreen = () => {
     alert('Password copied to clipboard!');
   };
 
-
   return (
     <View style={passwordGeneratorStyles.container}>
       <View style={passwordGeneratorStyles.passwordContainer}>

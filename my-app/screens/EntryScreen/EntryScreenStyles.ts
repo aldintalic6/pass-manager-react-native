@@ -26,18 +26,7 @@ const entryStyles = StyleSheet.create({
     fontSize: 18,
     color: '#555',
   },
-  input: {
-    width: '100%',
-    height: 50,
-    borderColor: '#ccc',
-    borderWidth: 1,
-    borderRadius: 10,
-    paddingHorizontal: 15,
-    marginBottom: 15,
-    backgroundColor: '#fff',
-    fontSize: 16,
-  },
-  passwordInputContainer: {
+  inputContainer: {
     width: '100%',
     flexDirection: 'row',
     alignItems: 'center',
@@ -48,7 +37,7 @@ const entryStyles = StyleSheet.create({
     backgroundColor: '#fff',
     paddingHorizontal: 10,
   },
-  passwordInput: {
+  input: {
     flex: 1,
     height: 50,
     fontSize: 16,
@@ -59,6 +48,9 @@ const entryStyles = StyleSheet.create({
     marginTop: 20,
     justifyContent: 'space-around',
     width: '100%',
+  },
+  iconButton: {
+    padding: 5,
   },
   buttonText: {
     color: '#fff',
