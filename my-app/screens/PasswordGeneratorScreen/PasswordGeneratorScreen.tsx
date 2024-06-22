@@ -42,15 +42,18 @@ const PasswordGeneratorScreen = () => {
 
   return (
     <View style={passwordGeneratorStyles.container}>
-        <View style={passwordGeneratorStyles.passwordContainer}>
-      <Text style={passwordGeneratorStyles.label}>Password: {password}</Text>
-      <Text style={passwordGeneratorStyles.label}>Strength: {strength}</Text>
-      <TouchableOpacity onPress={generateNewPassword} style={passwordGeneratorStyles.passwordButton}>
-        <Text style={passwordGeneratorStyles.buttonText}>Generate New Password</Text>
-      </TouchableOpacity>
-      <TouchableOpacity onPress={copyToClipboard} style={passwordGeneratorStyles.clipoardButton}>
-        <Text style={passwordGeneratorStyles.buttonText}>Copy to Clipboard</Text>
-      </TouchableOpacity>
+      <View style={passwordGeneratorStyles.passwordContainer}>
+        <Text style={passwordGeneratorStyles.label}>Generated Password:</Text>
+        <View style={passwordGeneratorStyles.passwordDisplay}>
+          <Text style={passwordGeneratorStyles.passwordText}>{password}</Text>
+          <TouchableOpacity onPress={copyToClipboard} style={passwordGeneratorStyles.copyButton}>
+            <Ionicons name="copy" size={24} color="#A8A8A8" />
+          </TouchableOpacity>
+        </View>
+        <Text style={passwordGeneratorStyles.strengthText}>Strength: {strength}</Text>
+        <TouchableOpacity onPress={generateNewPassword} style={passwordGeneratorStyles.generateButton}>
+          <Text style={passwordGeneratorStyles.buttonText}>Generate Password</Text>
+        </TouchableOpacity>
       </View>
     </View>
   );

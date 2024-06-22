@@ -4,9 +4,7 @@ import editEntryStyles from './EditEntryScreenStyles';
 import { Ionicons } from '@expo/vector-icons';
 import { useSelector, useDispatch } from 'react-redux';
 import { updateEntryTitle, updateEntryEmail, updateEntryPassword, updateEntryImage } from '../../redux/entrySlice';
-import * as ImagePicker from 'expo-image-picker'; // Import expo-image-picker
-
-const image = require("../../assets/klix.png");
+import * as ImagePicker from 'expo-image-picker'; 
 
 const EditEntryScreen = ({ navigation, route }: { navigation: any, route: any }) => {
     const dispatch = useDispatch();
@@ -30,7 +28,6 @@ const EditEntryScreen = ({ navigation, route }: { navigation: any, route: any })
       ],
       { cancelable: false }
     );
-    
 };
 
 const handleChoosePhoto = async () => {
@@ -53,10 +50,10 @@ const handleChoosePhoto = async () => {
     if (photo) {
       dispatch(updateEntryImage({ id, image: { uri: photo } }));
     }
-    navigation.navigate('Entries', { entry });
+    navigation.navigate('Entries');
 };
 
-  const handePasswordGenerator = () => {
+  const handlePasswordGenerator = () => {
     navigation.navigate('PasswordGenerator');
   };
 
@@ -66,51 +63,51 @@ const handleChoosePhoto = async () => {
 
   return (
     <View style={editEntryStyles.container}>
-        <View style={editEntryStyles.topBar}>
-            <TouchableOpacity onPress={handleGoBack}>
-                <Text style={editEntryStyles.cancelButtonText}>Cancel</Text>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={handleEditEntry}>
-                <Text style={editEntryStyles.confirmButtonText}>Confirm</Text>
-            </TouchableOpacity>
+      <TouchableOpacity onPress={handleChoosePhoto}>
+        <View style={editEntryStyles.imageContainer}>
+          {photo ? (
+            <Image source={{ uri: photo }} style={editEntryStyles.image} />
+          ) : (
+            <Text style={editEntryStyles.choosePhotoText}>Choose Photo</Text>
+          )}
         </View>
-        <TouchableOpacity onPress={handleChoosePhoto}>
-            <View style={editEntryStyles.imageContainer}>
-              {photo ? (
-              <Image source={{ uri: photo }} style={editEntryStyles.image} />
-            ) : (
-              <Text style={editEntryStyles.choosePhotoText}>Choose Photo</Text>
-            )}
-            </View>
+      </TouchableOpacity>
+      <TextInput
+        style={editEntryStyles.input}
+        placeholder="Name"
+        value={name}
+        onChangeText={setName}
+      />
+      <TextInput
+        style={editEntryStyles.input}
+        placeholder="Email"
+        keyboardType="email-address"
+        value={entryEmail}
+        onChangeText={setEmail}
+      />
+      <View style={editEntryStyles.passwordInputContainer}>
+        <TextInput
+          style={editEntryStyles.passwordInput}
+          placeholder="Password"
+          secureTextEntry={!showPassword}
+          value={entryPassword}
+          onChangeText={setPassword}
+        />
+        <TouchableOpacity onPress={handlePasswordGenerator} style={editEntryStyles.iconButton}>
+          <Ionicons name="key" size={24} color="#555" />
         </TouchableOpacity>
-        <TextInput
-            style={editEntryStyles.input}
-            placeholder="Name"
-            value={name}
-            onChangeText={setName}
-        />
-        <TextInput
-            style={editEntryStyles.input}
-            placeholder="Email"
-            keyboardType="email-address"
-            value={entryEmail}
-            onChangeText={setEmail}
-        />
-        <View style={editEntryStyles.passwordInputContainer}>
-            <TextInput
-                style={editEntryStyles.passwordInput}
-                placeholder="Password"
-                secureTextEntry={!showPassword} 
-                value={entryPassword}
-                onChangeText={setPassword}
-            />
-            <TouchableOpacity onPress={handePasswordGenerator} style={{marginRight: 12}}>
-              <Ionicons name="key" size={24} color="black" />
-            </TouchableOpacity>
-            <TouchableOpacity onPress={toggleShowPassword}>
-                <Ionicons name={showPassword ? "eye-off" : "eye"} size={24} color="#555" />
-            </TouchableOpacity>
-        </View>
+        <TouchableOpacity onPress={toggleShowPassword} style={editEntryStyles.iconButton}>
+          <Ionicons name={showPassword ? "eye-off" : "eye"} size={24} color="#555" />
+        </TouchableOpacity>
+      </View>
+      <View style={editEntryStyles.buttons}>
+        <TouchableOpacity onPress={handleGoBack} style={[editEntryStyles.confirmButton, editEntryStyles.cancelButton]}>
+          <Text style={editEntryStyles.buttonText}>Cancel</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={handleEditEntry} style={editEntryStyles.confirmButton}>
+          <Text style={editEntryStyles.buttonText}>Confirm</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };

@@ -18,7 +18,7 @@ const AuthStack = createNativeStackNavigator();
 const MainStack = createNativeStackNavigator();
 
 const App = () => {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(true);
 
   const AuthStackScreen = () => (
     <AuthStack.Navigator initialRouteName="Login">

@@ -4,7 +4,6 @@ import entryStyles from './EntryScreenStyles';
 import { Ionicons } from '@expo/vector-icons';
 import { useSelector, useDispatch } from 'react-redux';
 import { deleteEntry } from '../../redux/entrySlice';
-const image = require("../../assets/x.png");
 
 const EntryScreen = ({ navigation, route }: { navigation: any, route: any }) => {
   const dispatch = useDispatch();
@@ -29,7 +28,7 @@ const EntryScreen = ({ navigation, route }: { navigation: any, route: any }) => 
   const deleteEntryFunction = () => {
     Alert.alert(
       'Delete',
-      'Are you sure you want to delete entry?',
+      'Are you sure you want to delete the entry?',
       [
         { text: 'Cancel', style: 'cancel' },
         { text: 'Delete', style: 'destructive', onPress: () => {
@@ -41,49 +40,49 @@ const EntryScreen = ({ navigation, route }: { navigation: any, route: any }) => 
     );
 };
 
-  return (
-    <View style={entryStyles.container}>
-        <View style={entryStyles.imageContainer}>
-          {photo ? (
-            <Image source={photo} style={entryStyles.image} />
-          ) : (
-            <Text style={entryStyles.choosePhotoText}>Choose Photo</Text>
-          )}
-        </View>
-      <TextInput
-        style={entryStyles.input}
-        placeholder="Name"
-        value={name}
-        editable={false} 
-      />
-      <TextInput
-        style={entryStyles.input}
-        placeholder="Email"
-        value={entryEmail}
-        editable={false} 
-      />
-     <View style={entryStyles.passwordInputContainer}>
-        <TextInput
-          style={entryStyles.passwordInput}
-          placeholder="Password"
-          secureTextEntry={!showPassword} 
-          value={entryPassword}
-          editable={false} 
-        />
-        <TouchableOpacity onPress={toggleShowPassword}>
-          <Ionicons name={showPassword ? "eye-off" : "eye"} size={24} color="#555" />
-        </TouchableOpacity>
-      </View>
-      <View style={entryStyles.buttons}>
-        <TouchableOpacity onPress={goToEdit} style={entryStyles.editButton}>
-                <Text style={entryStyles.editButtonText}>Edit Entry</Text>
-            </TouchableOpacity>
-            <TouchableOpacity  onPress={deleteEntryFunction} style={entryStyles.deleteButton}>
-                <Text style={entryStyles.deleteButtonText}>Delete Entry</Text>
-        </TouchableOpacity>
-      </View>
+return (
+  <View style={entryStyles.container}>
+    <View style={entryStyles.imageContainer}>
+      {photo ? (
+        <Image source={photo} style={entryStyles.image} />
+      ) : (
+        <Text style={entryStyles.choosePhotoText}>No Photo</Text>
+      )}
     </View>
-  );
+    <TextInput
+      style={entryStyles.input}
+      placeholder="Name"
+      value={name}
+      editable={false}
+    />
+    <TextInput
+      style={entryStyles.input}
+      placeholder="Email"
+      value={entryEmail}
+      editable={false}
+    />
+    <View style={entryStyles.passwordInputContainer}>
+      <TextInput
+        style={entryStyles.passwordInput}
+        placeholder="Password"
+        secureTextEntry={!showPassword}
+        value={entryPassword}
+        editable={false}
+      />
+      <TouchableOpacity onPress={toggleShowPassword}>
+        <Ionicons name={showPassword ? "eye-off" : "eye"} size={24} color="#555" />
+      </TouchableOpacity>
+    </View>
+    <View style={entryStyles.buttons}>
+      <TouchableOpacity onPress={goToEdit} style={entryStyles.editButton}>
+        <Text style={entryStyles.buttonText}>Edit Entry</Text>
+      </TouchableOpacity>
+      <TouchableOpacity onPress={deleteEntryFunction} style={entryStyles.deleteButton}>
+        <Text style={entryStyles.buttonText}>Delete Entry</Text>
+      </TouchableOpacity>
+    </View>
+  </View>
+);
 };
 
 export default EntryScreen;
