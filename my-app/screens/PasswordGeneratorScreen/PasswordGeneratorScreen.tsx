@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, } from 'react-native';
 import passwordGeneratorStyles from './PasswordGeneratorStyles';
 import { Ionicons } from '@expo/vector-icons';
-import Clipboard from '@react-native-clipboard/clipboard';
+import * as Clipboard from 'expo-clipboard';
 
 const PasswordGeneratorScreen = () => {
   const [password, setPassword] = useState('');
@@ -37,9 +37,6 @@ const PasswordGeneratorScreen = () => {
     alert('Password copied to clipboard!');
   };
 
-  const handleGoBack = () => {
-    console.log("Went back")
-  };
 
   return (
     <View style={passwordGeneratorStyles.container}>
