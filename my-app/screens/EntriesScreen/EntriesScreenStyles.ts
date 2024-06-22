@@ -37,6 +37,7 @@ const entriesStyles = StyleSheet.create({
   },
   sectionList: {
     paddingBottom: 20,
+    paddingHorizontal: 5
   },
   entryItem: {
     backgroundColor: '#fff',
