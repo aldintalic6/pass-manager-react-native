@@ -62,9 +62,6 @@ return (
         value={name}
         editable={false}
       />
-      <TouchableOpacity onPress={() => copyToClipboard(name)} style={entryStyles.iconButton}>
-        <Ionicons name="copy" size={24} color="#555" />
-      </TouchableOpacity>
     </View>
     <View style={entryStyles.inputContainer}>
       <TextInput
