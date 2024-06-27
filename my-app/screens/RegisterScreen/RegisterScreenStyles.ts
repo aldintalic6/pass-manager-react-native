@@ -14,7 +14,7 @@ const registerStyles = StyleSheet.create({
       justifyContent: 'center',
       alignItems: 'center',
       width: '80%',
-      height: '40%',
+      height: '50%',
       backgroundColor: '#fff',
       borderRadius: 10,
       padding: 20,

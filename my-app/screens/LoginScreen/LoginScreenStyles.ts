@@ -18,12 +18,6 @@ const loginStyles = StyleSheet.create({
       borderRadius: 10,
       padding: 20,
     },
-    title: {
-      fontSize: 24,
-      fontWeight: 'bold',
-      marginBottom: 40,
-      color: '#fff'
-    },
     input: {
       width: '100%',
       height: 40,
@@ -52,8 +46,8 @@ const loginStyles = StyleSheet.create({
       width: '100%'
     },
     signUpText: {
-      marginTop: 10, // Add some space between the button and the "Sign Up" text
-      color: '#606060', // Color of the "Sign Up" text
+      marginTop: 10, 
+      color: '#606060', 
       textDecorationLine: 'underline'
     }
   });

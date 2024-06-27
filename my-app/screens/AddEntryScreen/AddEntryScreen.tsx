@@ -2,38 +2,37 @@ import React, { useState } from 'react';
 import { View, Text, TextInput, Button, Image, TouchableOpacity } from 'react-native';
 import addEntryStyles from './AddEntryScreenStyles';
 import { Ionicons } from '@expo/vector-icons';
-import usePasswordValidator from '../../customhooks/passwordValidator';
 import { useSelector, useDispatch } from 'react-redux';
 import { addEntry } from '../../redux/entrySlice';
-
-// Option to choose picture will be added thorugh a community package
-const image = require("../../assets/klix.png"); 
+import * as ImagePicker from 'expo-image-picker'; 
 
   const AddEntryScreen = ({ navigation }: { navigation: any }) => {
     const dispatch = useDispatch();
 
-  const [photo, setPhoto] = useState(image); 
+  const [photo, setPhoto] = useState<string | null>(null); 
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
-  const { isValid, validatePassword } = usePasswordValidator(); // custom hook
 
-  const handleChoosePhoto = () => {
-    setPhoto(image);
-    console.log("Choose photo feature will be implemented");
-  };
+  const handleChoosePhoto = async () => {
+    const permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
+    if (permissionResult.granted === false) {
+      alert('Permission to access camera roll is required!');
+      return;
+    }
 
-  const handleGoBack = () => {
-    navigation.navigate('Entries');
+    const pickerResult = await ImagePicker.launchImageLibraryAsync();
+    if (!pickerResult.canceled) {
+      setPhoto(pickerResult.assets[0].uri);
+    }
   };
 
   const handleAddEntry = () => {
-    if (isValid) {
       dispatch(
         addEntry({ 
           title: name,
-          image: photo,
+          image: photo ? { uri: photo } : null, // Set image property to correct format
           email: email,
           password: password,
         })
@@ -42,17 +41,9 @@ const image = require("../../assets/klix.png");
       setEmail('');
       setPassword('');
       navigation.navigate('Entries');
-    } else {
-      alert('Please enter a valid password.');
-    }
   };
-
-  const handlePasswordChange = (value : any) => {
-    setPassword(value);
-    validatePassword(value);
-  };
-
-  const handePasswordGenerator = () => {
+  
+  const handlePasswordGenerator = () => {
     navigation.navigate('PasswordGenerator');
   };
 
@@ -62,11 +53,10 @@ const image = require("../../assets/klix.png");
 
   return (
     <View style={addEntryStyles.container}>
-      
       <TouchableOpacity onPress={handleChoosePhoto}>
         <View style={addEntryStyles.imageContainer}>
           {photo ? (
-            <Image source={photo} style={addEntryStyles.image} />
+            <Image source={{ uri: photo }} style={addEntryStyles.image} />
           ) : (
             <Text style={addEntryStyles.choosePhotoText}>Choose Photo</Text>
           )}
@@ -75,6 +65,7 @@ const image = require("../../assets/klix.png");
       <TextInput
         style={addEntryStyles.input}
         placeholder="Name"
+        autoCapitalize="none"
         value={name}
         onChangeText={setName}
       />
@@ -82,25 +73,29 @@ const image = require("../../assets/klix.png");
         style={addEntryStyles.input}
         placeholder="Email"
         keyboardType="email-address"
+        autoCapitalize="none"
         value={email}
         onChangeText={setEmail}
       />
-     <View style={addEntryStyles.passwordInputContainer}>
+      <View style={addEntryStyles.passwordInputContainer}>
         <TextInput
           style={addEntryStyles.passwordInput}
           placeholder="Password"
-          secureTextEntry={!showPassword} 
+          secureTextEntry={!showPassword}
+          autoCapitalize="none"
           value={password}
-          onChangeText={handlePasswordChange} // Call handlePasswordChange when the password changes
+          onChangeText={text => setPassword(text)}
         />
-        <TouchableOpacity onPress={handePasswordGenerator} style={{marginRight: 12}}>
-          <Ionicons name="key" size={24} color="black" />
+        <TouchableOpacity onPress={handlePasswordGenerator} style={addEntryStyles.iconButton}>
+          <Ionicons name="key" size={24} color="#555" />
         </TouchableOpacity>
-        <TouchableOpacity onPress={toggleShowPassword}>
+        <TouchableOpacity onPress={toggleShowPassword} style={addEntryStyles.iconButton}>
           <Ionicons name={showPassword ? "eye-off" : "eye"} size={24} color="#555" />
         </TouchableOpacity>
       </View>
-      <Button title="Add Entry" onPress={handleAddEntry} />
+      <TouchableOpacity onPress={handleAddEntry} style={addEntryStyles.addButton}>
+        <Text style={addEntryStyles.addButtonText}>Add Entry</Text>
+      </TouchableOpacity>
     </View>
   );
 };

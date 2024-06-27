@@ -1,24 +1,33 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, TouchableOpacity, ImageBackground, Alert } from 'react-native';
 import loginStyles from './LoginScreenStyles';
 import { useDispatch, useSelector } from 'react-redux';
-import { loginStart, loginSuccess, loginFailure } from '../../redux/authSlice';
+import { setUsers, loginStart, loginSuccess, loginFailure, loadUsersFromStorage } from '../../redux/authSlice';
 
-const LoginScreen = ({ navigation }: { navigation: any }) => {
+const LoginScreen = ({ navigation, setIsAuthenticated }: { navigation: any, setIsAuthenticated: React.Dispatch<React.SetStateAction<boolean>> }) => {
   const dispatch = useDispatch();
   const users = useSelector((state: any) => state.auth.users);
 
   const [email, setEmail] = useState('');
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
+  useEffect(() => {
+    const loadUsers = async () => {
+      const storedUsers = await loadUsersFromStorage();
+      dispatch(setUsers(storedUsers));
+    };
+    loadUsers();
+  }, [dispatch]);
+
   const handleLogin = () => {
-    if (email === '' || password === '') {
+    if (!email && !username || password === '') {
       Alert.alert('Please fill in all fields');
       dispatch(loginFailure('Error logging in'));
       return;
     }
 
-    const user = users.find((user: any) => user.email === email && user.password === password);
+    const user = users.find((user: any) => (user.email === email || user.username === username) && user.password === password);
     if (!user) {
       Alert.alert('Invalid email or password');
       return;
@@ -30,7 +39,7 @@ const LoginScreen = ({ navigation }: { navigation: any }) => {
       setEmail("");
       setPassword("");
       dispatch(loginSuccess(user));
-      navigation.navigate('Entries'); 
+      setIsAuthenticated(true);
     }, 1000);
   };
 
@@ -39,22 +48,33 @@ const LoginScreen = ({ navigation }: { navigation: any }) => {
     navigation.navigate('Register');
   };
 
+  const handleTextChange = (text: string) => {
+    if (text.includes('@')) {
+      setEmail(text); 
+      setUsername(''); 
+    } else {
+      setUsername(text); 
+      setEmail(''); 
+    }
+  };
+
   return (
-    <ImageBackground source={require('../../assets/login_background.jpeg')} style={loginStyles.background}>
+    <ImageBackground source={require('../../assets/gray.jpeg')} style={loginStyles.background}>
       <View style={loginStyles.container}>
-      <Text style={loginStyles.title}>Login</Text>
         <View style={loginStyles.loginBox}>
           <TextInput
             style={loginStyles.input}
-            placeholder="Email"
-            keyboardType="email-address"
-            value={email}
-            onChangeText={text => setEmail(text)}
+            placeholder="Email or username"
+            keyboardType="default"
+            autoCapitalize="none"
+            value={email || username} 
+            onChangeText={handleTextChange}
           />
           <TextInput
             style={loginStyles.input}
             placeholder="Password"
             secureTextEntry={true}
+            autoCapitalize="none"
             value={password}
             onChangeText={text => setPassword(text)}
           />
